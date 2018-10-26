@@ -1,1 +1,5 @@
 # deanlai.github.io
+
+## My website, as built while taking courses to learn how to do so
+
+*note: some commits are buzzworded out of laziness*
