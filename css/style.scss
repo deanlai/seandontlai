@@ -1,9 +1,6 @@
-div {
-    font-size: 18px;
-    p {
-        color: blue;
-    }
-    ul {
-        color: green;
-    }
+$serif: Georgia;
+$charcoal: #444444;
+
+body {
+    font-family: $serif
 }
