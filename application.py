@@ -1,3 +1,4 @@
+import datetime
 from flask import Flask
 from flask import render_template
 
@@ -22,3 +23,25 @@ def places():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+
+@app.route('/hello/')
+@app.route('/hello/<name>')
+def hello(name=None):
+    return render_template('hello.html', name=name)
+
+
+@app.route('/whatdayisit')
+def whatDay():
+    daysDict = {
+        0: 'Monday',
+        1: 'Tuesday',
+        2: 'Wednesday',
+        3: 'Thursday',
+        4: 'Friday',
+        5: 'Saturday',
+        6: 'Sunday'
+    }
+    now = datetime.datetime.now()
+    todayIs = daysDict[now.weekday()]
+    return render_template('whatDay.html', todayIs=todayIs)
