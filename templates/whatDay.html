@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta charset="utf-8">
+{% extends 'baselayout.html' %}
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/style.css" type="text/css">
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block title %}What day is it?{% endblock %}
 
-        <title></title>
-    </head>
-    <body>
-        <div class="container">
-            <h1 class="display-1 text-center">{{todayIs}}</h1>
-        </div>
-    </body>
-</html>
+{% block content %}
+<h2 class="text-monospace text-center">what day is it?</h2>
+<div class="container">
+    <h1 class="display-1 text-center">{{todayIs}}</h1>
+</div>
+{% endblock %}
