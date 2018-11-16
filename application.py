@@ -46,3 +46,7 @@ def whatDay():
     now = datetime.datetime.now()
     todayIs = daysDict[now.weekday()]
     return render_template('whatDay.html', todayIs=todayIs)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
