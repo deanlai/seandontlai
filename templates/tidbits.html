@@ -6,5 +6,15 @@
 {% block title %}Tidbits{% endblock %}
 
 {% block content %}
-    <h1 class="title">Tidbits</h1>
+<div class="container">
+    <div class="tile is-ancestor">
+        <div class="tile is-3  is-parent">
+            <article class="tile is-child notification is-primary">
+                <a href="/whatdayisit">
+                    <p class="title has-text-centered">What day is it?</p>
+                </a>
+            </article>
+        </div>
+    </div>
+</div>
 {% endblock %}

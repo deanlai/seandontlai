@@ -33,7 +33,7 @@ def hello(name=None):
 
 
 @app.route('/whatdayisit')
-def whatDay():
+def whatdayisit():
     daysDict = {
         0: 'Monday',
         1: 'Tuesday',
@@ -45,7 +45,7 @@ def whatDay():
     }
     now = datetime.datetime.now()
     todayIs = daysDict[now.weekday()]
-    return render_template('whatDay.html', todayIs=todayIs)
+    return render_template('whatdayisit.html', todayIs=todayIs)
 
 
 if __name__ == '__main__':
