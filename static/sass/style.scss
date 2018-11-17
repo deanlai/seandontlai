@@ -20,6 +20,7 @@ $beige-lighter: #EFF0EB;
 //Seandontlai colors
 $charcoal: #333333;
 $burnt: #cc3300;
+$almostwhite: #FDFDFD;
 
 // Update Bulma's global variables
 $family-sans-serif: "Alegreya Sans", sans-serif;
@@ -36,6 +37,7 @@ $body-background-color: $beige-lighter;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
+$notification-background-color: $almostwhite;
 
 // Import only what you need from Bulma
 @import "../bulma/sass/utilities/_all.sass";

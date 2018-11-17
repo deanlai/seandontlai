@@ -48,5 +48,10 @@ def whatdayisit():
     return render_template('whatdayisit.html', todayIs=todayIs)
 
 
+@app.route('/energy')
+def energy():
+    return render_template('energy.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
