@@ -18,7 +18,7 @@ var conversions = {
         "nuclear": 86750000000,
         "cyclist": 756000,
         "sun": 3600000,
-        "gasoline": 131760000
+        "gasoline": 1483561
 };
 
 function calculateEnergy(value, energyType) {
