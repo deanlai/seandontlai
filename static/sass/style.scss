@@ -51,10 +51,20 @@ $notification-background-color: $almostwhite;
 $family-monospace: "Inconsolata", monospace;
 .is-family-monospace{
     font-family: $family-monospace
-    }
+}
 .is-family-serif{
     font-family: $family-serif
-    }
+}
 .title, .subtitle{
     font-family: $family-monospace
+}
+//canvas
+#overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+}
+#underlay{
+    z-index: 1;
 }

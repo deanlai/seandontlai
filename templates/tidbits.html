@@ -3,12 +3,14 @@
 {% block head %}
     {{ super() }}
     <script type="text/javascript" src="{{ url_for('static', filename='js/tidbits/main.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tidbits/canvas.js') }}"></script>
 {% endblock %}
 {% block subtitle %}Tidbits{% endblock %}
 
 {% block content %}
+<canvas id="overlay"></canvas>
 <div class="container">
-    <div class="tile is-ancestor">
+    <div id="underlay" class="tile is-ancestor">
         <div class="tile is-parent">
             <article class="tile is-child notification">
                 <div id="birthday" class="has-text-centered">
