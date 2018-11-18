@@ -5,12 +5,13 @@ from flask import render_template
 app = Flask(__name__)
 
 
-@app.route('/')
+# @app.route('/')
 @app.route('/home')
 def home():
     return render_template('home.html')
 
 
+@app.route('/')
 @app.route('/tidbits')
 def tidbits():
     return render_template('tidbits.html')
@@ -24,28 +25,6 @@ def places():
 @app.route('/about')
 def about():
     return render_template('about.html')
-
-
-@app.route('/hello/')
-@app.route('/hello/<name>')
-def hello(name=None):
-    return render_template('hello.html', name=name)
-
-
-@app.route('/whatdayisit')
-def whatdayisit():
-    daysDict = {
-        0: 'Monday',
-        1: 'Tuesday',
-        2: 'Wednesday',
-        3: 'Thursday',
-        4: 'Friday',
-        5: 'Saturday',
-        6: 'Sunday'
-    }
-    now = datetime.datetime.now()
-    todayIs = daysDict[now.weekday()]
-    return render_template('whatdayisit.html', todayIs=todayIs)
 
 
 @app.route('/energy')
