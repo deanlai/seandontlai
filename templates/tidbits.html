@@ -8,9 +8,8 @@
 {% block subtitle %}Tidbits{% endblock %}
 
 {% block content %}
-<canvas id="overlay"></canvas>
 <div class="container">
-    <div id="underlay" class="tile is-ancestor">
+    <div class="tile is-ancestor">
         <div class="tile is-parent">
             <article class="tile is-child notification">
                 <div id="birthday" class="has-text-centered">
@@ -27,9 +26,9 @@
         </div>
         <div class="tile is-parent">
             <article class="tile is-child notification">
-                <a href="/energy">
-                    <p class="subtitle has-text-centered">Layman's Energies</p>
-                </a>
+                <div class="has-text-centered">
+                    <a href="/energy" class="subtitle">Layman's Energies</a>
+                </div>
             </article>
         </div>
     </div>
