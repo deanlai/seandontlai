@@ -54,4 +54,7 @@ $family-monospace: "Inconsolata", monospace;
     }
 .is-family-serif{
     font-family: $family-serif
+    }
+.title, .subtitle{
+    font-family: $family-monospace
 }

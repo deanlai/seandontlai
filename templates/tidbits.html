@@ -2,30 +2,31 @@
 
 {% block head %}
     {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tidbits/main.js') }}"></script>
 {% endblock %}
-{% block title %}Tidbits{% endblock %}
+{% block subtitle %}Tidbits{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="tile is-ancestor">
         <div class="tile is-parent">
             <article class="tile is-child notification">
-                <a href="/whatdayisit">
-                    <p class="title has-text-centered">What day is it?</p>
-                </a>
+                <div id="birthday" class="has-text-centered">
+                    <a class="subtitle" onclick="checkBirthday()">Is it Sean's birthday?</a>
+                </div>
             </article>
         </div>
         <div class="tile is-parent">
             <article class="tile is-child notification">
-                <a href="/hello">
-                    <p class="title has-text-centered">Hello!?</p>
-                </a>
+                <div id="flip" class="has-text-centered">
+                    <a class="subtitle" onclick="flipCoin()">Flip a coin</a>
+                </div>
             </article>
         </div>
         <div class="tile is-parent">
             <article class="tile is-child notification">
                 <a href="/energy">
-                    <p class="title has-text-centered">Layman's Energies</p>
+                    <p class="subtitle has-text-centered">Layman's Energies</p>
                 </a>
             </article>
         </div>

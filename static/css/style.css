@@ -8164,3 +8164,7 @@ label.panel-block:hover {
 .is-family-serif {
   font-family: "Alegreya", serif;
 }
+
+.title, .subtitle {
+  font-family: "Inconsolata", monospace;
+}
