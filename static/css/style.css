@@ -8168,3 +8168,17 @@ label.panel-block:hover {
 .title, .subtitle {
   font-family: "Inconsolata", monospace;
 }
+
+#crane {
+  height: 20em;
+  width: 100%;
+  align-content: center;
+}
+
+iframe {
+  padding-top: 1.5em;
+}
+
+#tidbits * {
+  text-align: center;
+}

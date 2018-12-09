@@ -58,3 +58,15 @@ $family-monospace: "Inconsolata", monospace;
 .title, .subtitle{
     font-family: $family-monospace
 }
+
+#crane{
+    height: 20em;
+    width: 100%;
+    align-content: center;
+}
+iframe {
+    padding-top: 1.5em;
+}
+#tidbits *{
+    text-align: center;
+}
