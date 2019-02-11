@@ -37,5 +37,10 @@ def pink():
     return render_template('pink.html')
 
 
+@app.route('/oregon')
+def oregon():
+    return render_template('oregon.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

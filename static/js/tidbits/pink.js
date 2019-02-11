@@ -1,6 +1,6 @@
-var canvas = {
-  width: window.innerWidth,
-  height: window.innerHeight
+var canv = {
+  w: window.innerWidth,
+  h: window.innerHeight
 };
 
 var spot = {
@@ -17,8 +17,8 @@ var color = {
 };
 
 function setup() {
-  createCanvas(canvas.width, canvas.height);
-  background(luminance);
+  createCanvas(canv.w, canv.h);
+  background(0);
 }
 
 function draw() {
@@ -30,6 +30,6 @@ function draw() {
   fill(color.r, color.g, color.b, color.a);
   ellipse(spot.x, spot.y, spot.diameter, spot.diameter, color.a)
 
-  spot.x = random(canvas.width);
-  spot.y = random(canvas.height);
+  spot.x = random(canv.w);
+  spot.y = random(canv.h);
 }
