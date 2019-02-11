@@ -32,5 +32,10 @@ def energy():
     return render_template('energy.html')
 
 
+@app.route('/pink')
+def pink():
+    return render_template('pink.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

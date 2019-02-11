@@ -2,9 +2,10 @@
 
 {% block head %}
     {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/p5/p5.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/tidbits/pink.js') }}"></script>
 {% endblock %}
-{% block title %}Layman's Energies{% endblock %}
+{% block title %}Random Pink{% endblock %}
 
 {% block content %}
 

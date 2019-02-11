@@ -25,7 +25,7 @@ var circle = {
 var luminance = 0;
 
 function setup() {
-  createCanvas(600, 300);
+  createCanvas(window.innerWidth, window.innerHeight);
   background(luminance);
 }
 
@@ -47,3 +47,4 @@ function draw() {
 
   spot.x = random(canvas.width);
   spot.y = random(canvas.height);
+}
