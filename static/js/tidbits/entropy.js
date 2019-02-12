@@ -25,17 +25,17 @@ particles = []
 
 function setup() {
   createCanvas(canv.w, canv.h);
-  background(50);
+  background(10);
   for (i = 0; i < canv.h*3; i++) {
     angle = random(0, 360)
-    radius = random(0, 20)
+    radius = random(0, canv.h/10)
     part = new Particle(canv.w/2 + radius * Math.sin(angle), canv.h/2 + radius * Math.cos(angle))
     particles.push(part)
   }
 }
 
 function draw() {
-  background(50);
+  background(10);
   for (i=0; i<particles.length; i++) {
 		particles[i].show()
     particles[i].move()
