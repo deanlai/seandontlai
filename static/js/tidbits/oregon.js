@@ -1,6 +1,6 @@
 var canv = {
   w: window.innerWidth,
-  h: window.innerHeight
+  h: window.innerHeight-52
 };
 
 class Drop {

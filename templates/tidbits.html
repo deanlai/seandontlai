@@ -3,7 +3,6 @@
 {% block head %}
     {{ super() }}
     <script type="text/javascript" src="{{ url_for('static', filename='js/tidbits/main.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/tidbits/canvas.js') }}"></script>
 {% endblock %}
 {% block title %}Tidbits{% endblock %}
 
@@ -44,16 +43,25 @@
             <div class="tile is-parent">
                 <article class="tile is-child notification">
                     <div class="">
-                        <a id="cranetoggle" onclick="toggleVideo()" class="subtitle">A Crane Flies</a>
+                        <a href="/pink" class="subtitle">Random Pink</a>
                     </div>
-                    <iframe id="crane" style="display:none" src="https://www.youtube.com/embed/EIdwXzBoeAs" frameborder="0" allow="accelerometer; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </article>
+            </div>
+        </div>
+        <div class="tile">
+            <div class="tile is-parent">
+                <article class="tile is-child notification">
+                    <div class="">
+                        <a href="/entropy" class="subtitle">Entropy</a>
+                    </div>
                 </article>
             </div>
             <div class="tile is-parent">
                 <article class="tile is-child notification">
                     <div class="">
-                        <a href="/pink" class="subtitle">Random Pink</a>
+                        <a id="cranetoggle" onclick="toggleVideo()" class="subtitle">A Crane Flies</a>
                     </div>
+                    <iframe id="crane" style="display:none" src="https://www.youtube.com/embed/EIdwXzBoeAs" frameborder="0" allow="accelerometer; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </article>
             </div>
         </div>

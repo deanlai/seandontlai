@@ -1,12 +1,11 @@
 var canv = {
   w: window.innerWidth,
-  h: window.innerHeight
+  h: window.innerHeight-52
 };
 
 var spot = {
   x: 0,
   y: 0,
-  diameter: 25
 };
 
 var color = {
@@ -28,7 +27,8 @@ function draw() {
   color.a = 125
   noStroke()
   fill(color.r, color.g, color.b, color.a);
-  ellipse(spot.x, spot.y, spot.diameter, spot.diameter, color.a)
+  d = random(15,45)
+  ellipse(spot.x, spot.y, d, d, color.a)
 
   spot.x = random(canv.w);
   spot.y = random(canv.h);

@@ -42,5 +42,10 @@ def oregon():
     return render_template('oregon.html')
 
 
+@app.route('/entropy')
+def entropy():
+    return render_template('entropy.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
