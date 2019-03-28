@@ -10,7 +10,7 @@ class Drop {
     this.h = map(this.z, 0, 20, 8, 27)
     this.x = x
     this.y = y
-    this.s = map(this.z, 0, 20, 5, 15)
+    this.s = map(this.z, 0, 20, 10, 25)
 
 
   }
