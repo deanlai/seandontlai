@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html class=has-navbar-fixed-top>
   <head>
     {% block head %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,9 +10,9 @@
     {% endblock %}
   </head>
   <body>
-      <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+      <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a class="navbar-item" href="/">
+          <a class="navbar-item" href="{{ url_for('tidbits') }}">
             <h1 class="is-family-serif is-size-5 has-text-weight-semibold">Sean don't Lai</h1>
           </a>
 
@@ -25,8 +25,11 @@
 
         <div id="main-nav" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item" href="/tidbits">
+            <a class="navbar-item" href="{{ url_for('tidbits') }}">
             Tidbits
+            </a>
+            <a class="navbar-item"href="{{ url_for('login') }}">
+            Login
             </a>
             <!--
             <a class="navbar-item"  href="home">
@@ -45,7 +48,15 @@
           </div>
         </div>
   </nav>
-
+  {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+  {% endif %}
+  {% endwith %}
   {% block content %}
   {% endblock %}
 
