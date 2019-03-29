@@ -1,5 +1,8 @@
 {% extends "baselayout.html" %}
-
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block title %}{{title}}{% endblock %}
 {% block content %}
     <h1>Register</h1>
     <form action="" method="post">
