@@ -28,9 +28,15 @@
             <a class="navbar-item" href="{{ url_for('tidbits') }}">
             Tidbits
             </a>
-            <a class="navbar-item"href="{{ url_for('login') }}">
-            Login
+            {% if current_user.is_anonymous %}
+            <a class="navbar-item"href="{{ url_for('login') }}">Login</a>
+            {% else %}
+            <a class="navbar-item"href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+            <a class="navbar-item"  href="{{ url_for('secret') }}">
+              SECRET
             </a>
+          </div>
             <!--
             <a class="navbar-item"  href="home">
               Home
