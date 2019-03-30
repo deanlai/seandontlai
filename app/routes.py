@@ -12,6 +12,7 @@ def home():
 
 
 @app.route('/')
+@app.route('/index')
 @app.route('/tidbits')
 def tidbits():
     return render_template('tidbits.html')
@@ -61,7 +62,8 @@ def register():
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     problems = Problem.query.all()
-    return render_template('user.html', user=user, problems=problems)
+    return render_template(
+        'user.html', title=username, user=user, problems=problems)
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -79,6 +81,38 @@ def edit_profile():
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
+
+
+@app.route('/follow/<username>')
+@login_required
+def follow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('User {} not found.'.format(username))
+        return redirect(url_for('tidbits'))
+    if user == current_user:
+        flash('You cannot follow yourself!')
+        return redirect(url_for('user', username=username))
+    current_user.follow(user)
+    db.session.commit()
+    flash('You are following {}!'.format(username))
+    return redirect(url_for('user', username=username))
+
+
+@app.route('/unfollow/<username>')
+@login_required
+def unfollow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('User {} not found.'.format(username))
+        return redirect(url_for('tidbits'))
+    if user == current_user:
+        flash('You cannot unfollow yourself!')
+        return redirect(url_for('user', username=username))
+    current_user.unfollow(user)
+    db.session.commit()
+    flash('You are not following {}.'.format(username))
+    return redirect(url_for('user', username=username))
 
 
 @app.route('/places')
@@ -114,5 +148,5 @@ def entropy():
 @app.route('/secret')
 @login_required
 def secret():
-    problems = Problem.query.all()
+    problems = Problem.query.filter_by(user_id=current_user.id)
     return render_template('secret.html', problems=problems)
