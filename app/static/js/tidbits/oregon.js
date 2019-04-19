@@ -27,7 +27,7 @@ class Drop {
     if (this.y > canv.h) {
       this.y = random(-canv.h, 0)
       this.x = random(0, canv.w)
-      this.s = map(this.z, 0, 20, 5, 15)
+      this.s = map(this.z, 0, 20, 10, 25)
     }
   }
 }

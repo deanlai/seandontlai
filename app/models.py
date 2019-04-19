@@ -64,7 +64,10 @@ class Problem(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     color = db.Column(db.String(32), index=True)
-    grade = db.Column(db.Integer, index=True)
+    grade = db.Column(db.String(3), index=True)
+    risk = db.Column(db.Integer(), index=True)
+    intensity = db.Column(db.Integer(), index=True)
+    complexity = db.Column(db.Integer(), index=True)
 
     def __repr__(self):
         return '<Problem: {} {} {}>'.format(

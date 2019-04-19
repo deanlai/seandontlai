@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, \
-    SubmitField, TextAreaField
+    SubmitField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, ValidationError, Email, \
     EqualTo, Length
 from app.models import User
@@ -46,3 +46,20 @@ class EditProfileForm(FlaskForm):
             user = User.query.filter_by(username=self.username.data).first()
             if user is not None:
                 raise ValidationError('Please use a different username.')
+
+
+class ProblemForm(FlaskForm):
+    grade = StringField('Input Grade', validators=[
+        DataRequired(), Length(min=1, max=3)])
+    color = StringField('Input Color', validators=[
+        DataRequired(), Length(min=1, max=32)])
+    risk = SelectField(
+        u'Risk',
+        choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
+    intensity = SelectField(
+        u'Intensity',
+        choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
+    complexity = SelectField(
+        u'Complexity',
+        choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
+    submit = SubmitField('Submit')

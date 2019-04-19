@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, ProblemForm
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from app.models import User, Problem
@@ -145,8 +145,20 @@ def entropy():
     return render_template('entropy.html')
 
 
-@app.route('/secret')
+@app.route('/secret', methods=['GET', 'POST'])
 @login_required
 def secret():
+    form = ProblemForm()
+    if form.validate_on_submit():
+        problem = Problem(grade=form.grade.data,
+                          color=form.color.data,
+                          risk=form.risk.data,
+                          intensity=form.intensity.data,
+                          complexity=form.complexity.data,
+                          setter=current_user)
+        db.session.add(problem)
+        db.session.commit()
+        flash('Your problem has been recorded!')
+        return redirect(url_for('secret'))
     problems = Problem.query.filter_by(user_id=current_user.id)
-    return render_template('secret.html', problems=problems)
+    return render_template('secret.html', problems=problems, form=form)
