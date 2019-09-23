@@ -205,6 +205,10 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function lowerCaseIfNotI(string){
+    return(string[0] === "I" ? string : string.toLowerCase())
+}
+
 function getCompliment(compliments){
     return compliments[Math.floor(Math.random()*compliments.length)];
 };
@@ -213,7 +217,7 @@ function formSandwich(critcism) {
     critcism = capitalizeFirstLetter(critcism.replace(/\.\s*$/, ""));
     comp1 = getCompliment(compliments)
     comp2 = getCompliment(compliments)
-    sandwich = comp1 + ' ' + critcism + ', but ' + comp2.toLowerCase()
+    sandwich = comp1 + ' ' + critcism + ', but ' + lowerCaseIfNotI(comp2)
     return sandwich
 }
 
