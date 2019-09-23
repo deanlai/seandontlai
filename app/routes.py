@@ -145,6 +145,11 @@ def entropy():
     return render_template('entropy.html')
 
 
+@app.route('/complimentsandwich')
+def complimentsandwich():
+    return render_template('complimentsandwich.html')
+
+
 @app.route('/secret', methods=['GET', 'POST'])
 @login_required
 def secret():
