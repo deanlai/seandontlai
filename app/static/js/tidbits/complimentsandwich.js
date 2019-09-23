@@ -205,8 +205,12 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function lowerCaseFirstLetter(string) {
+    return string.charAt(0).toLowerCase() + string.slice(1);
+}
+
 function lowerCaseIfNotI(string){
-    return(string[0] === "I" ? string : string.toLowerCase())
+    return(string.slice(0,2) === "I " ? string : lowerCaseFirstLetter(string))
 }
 
 function getCompliment(compliments){
