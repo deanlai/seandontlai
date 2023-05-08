@@ -7,7 +7,6 @@ name = "pypi"
 flask = "*"
 python-dotenv = "*"
 flask-wtf = "*"
-flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-login = "*"
 "jinja2" = "*"
@@ -15,4 +14,4 @@ flask-login = "*"
 [dev-packages]
 
 [requires]
-python_version = "3.7"
+python_version = "3.9"

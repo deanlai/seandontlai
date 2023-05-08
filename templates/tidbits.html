@@ -1,0 +1,88 @@
+{% extends 'baselayout.html' %}
+
+{% block head %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tidbits/main.js') }}"></script>
+{% endblock %}
+{% block title %}Tidbits{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="small-spacer">
+    </div>
+    <div id="tidbits" class="tile is-ancestor is-vertical ">
+        <div class="tile">
+            <div class="tile is-parent">
+                <article class="tile is-child notification">
+                    <div id="birthday" class="">
+                        <a class="subtitle" onclick="checkBirthday()">Is it Sean's birthday?</a>
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child notification">
+                    <div id="flip" class="">
+                        <a class="subtitle" onclick="flipCoin()">Flip a coin</a>
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child notification">
+                    <div class="">
+                        <a href="/energy" class="subtitle">Layman's Energies</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="tile">
+            <div class="tile is-parent">
+                <article class="tile is-child notification">
+                    <div class="">
+                        <a href="/lightbuzz" class="subtitle">Lord of Fly</a>
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child notification">
+                    <div class="">
+                        <a href="/entropy" class="subtitle">Entropy</a>
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child notification">
+                    <div class="">
+                        <a href="/complimentsandwich" class="subtitle">Compliment Sandwich</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="tile">
+            <div class="tile is-parent">
+                <article class="tile is-child notification">
+                    <div class="">
+                        <a href="/oregon" class="subtitle">Oregon</a>
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child notification">
+                    <div class="">
+                        <a href="/pink" class="subtitle">Random Pink</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="tile">
+            <div class="tile is-parent">
+                <article class="tile is-child notification">
+                    <div class="">
+                        <a id="cranetoggle" onclick="toggleVideo()" class="subtitle">A Crane Flies</a>
+                    </div>
+                    <iframe id="crane" style="display:none" src="https://www.youtube.com/embed/EIdwXzBoeAs" frameborder="0" allow="accelerometer; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
