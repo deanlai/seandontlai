@@ -32,7 +32,7 @@ function mouseMoved() {
   mouseIsMoving = 1;
 }
 
-function mousePressed() {
+function mouseReleased() {
   light.toggle()
 }
 
