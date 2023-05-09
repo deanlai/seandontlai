@@ -9,16 +9,24 @@ class Fly {
       this.stopped = 0;
       this.landed = 0;
       this.lit = 0;
+      this.sees_light = 0;
       
     }
-    update(mouseVector){
+    update(mouseVector, lightStrength, light_status){
+      if (light_status == 1) {
+        this.sees_light = 1
+      }
+      else {
+        this.sees_light = 0
+      }
+
       this.lastpos = this.pos.copy()
       this.buzz()
       if (this.stopped == 1 && this.landed == 0){
         this.moveAwayFromLight(mouseVector)
       }
-      else {
-        this.moveTowardLight(mouseVector)
+      else if (this.sees_light == 1) {
+        this.moveTowardLight(mouseVector, lightStrength)
       }
       if (this.landed == 0){
         if (this.accel.mag() > 5){
@@ -37,11 +45,14 @@ class Fly {
     }
     
     checkIfLit(lightVector, lightRadius) {
-      let flypos = this.pos.copy();
-      if (flypos.sub(lightVector).mag() < lightRadius)
-        this.lit = 1
-      else
-        this.lit = 0
+      if (this.sees_light == 1) {
+        let flypos = this.pos.copy();
+        if (flypos.sub(lightVector).mag() < lightRadius)
+          this.lit = 1
+        else
+          this.lit = 0
+      }
+      else this.lit = 0
     }
     
     getDistanceToLight(mouseVector){
@@ -67,7 +78,7 @@ class Fly {
       this.applyForce(buzzForce)
     }
     
-    moveTowardLight(mouseVector){
+    moveTowardLight(mouseVector, lightStrength){
       let lightForce = this.pos.copy()
       lightForce.sub(mouseVector)
       lightForce.mult(-1)
@@ -106,7 +117,7 @@ class Fly {
         
         let shadowVector = this.pos.copy()
         shadowVector.add(mouse2posVector.mult(0.12))
-        fill(10,10,10, 100);
+        fill(10,10,10,100);
         noStroke()
         ellipse(shadowVector.x, shadowVector.y,
                 this.size*2, this.size*2)
