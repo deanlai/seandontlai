@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+
+from flask_frozen import Freezer
+from app import app
+from pathlib import Path
+
+freezer = Freezer(app)
+app.config['FREEZER_DESTINATION'] = 'docs'
+
+if __name__ == '__main__':
+    freezer.freeze()
+    p = Path('build/tidbits')
+    p.rename('build/index.html')
