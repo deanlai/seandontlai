@@ -7,7 +7,31 @@ from pathlib import Path
 freezer = Freezer(app)
 app.config['FREEZER_DESTINATION'] = 'docs'
 
+def rmtree(root):
+    for p in root.iterdir():
+        if p.is_dir():
+            rmtree(p)
+        else:
+            p.unlink()
+
 if __name__ == '__main__':
+    print('removing docs/ directory')
+    docs_dir = Path('docs/')
+    rmtree(docs_dir)
+
+    print('generating static site')
     freezer.freeze()
-    p = Path('docs/tidbits')
-    p.rename('docs/index.html')
+
+    print('renaming files')
+    tidbits_path = docs_dir / 'tidbits'
+    tidbits_path.rename(docs_dir / 'index.html')
+
+    for path in docs_dir.iterdir():
+        if path.is_file() and path.suffix == '':
+            path.rename(docs_dir / f'{path.name}.html')
+
+    print('touching nojekyll file')
+    (docs_dir / '.nojekyll').touch()
+    print('writing CNAME file')
+    with open(docs_dir / 'CNAME', 'w') as out:
+        out.write('seandontlai.com')
