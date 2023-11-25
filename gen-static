@@ -9,5 +9,5 @@ app.config['FREEZER_DESTINATION'] = 'docs'
 
 if __name__ == '__main__':
     freezer.freeze()
-    p = Path('build/tidbits')
-    p.rename('build/index.html')
+    p = Path('docs/tidbits')
+    p.rename('docs/index.html')
