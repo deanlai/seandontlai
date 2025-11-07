@@ -238,37 +238,37 @@
         });
 
         async function addAttendee(name) {
-            if (USE_REAL_BACKEND) {
-                // Real backend (Google Sheets)
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: name,
-                        timestamp: new Date().toISOString()
-                    })
-                });
-                
-                if (!response.ok) throw new Error('Failed to add attendee');
-                return await response.json();
-            } else {
-                // LocalStorage demo
-                const attendees = getLocalAttendees();
-                
-                // Check for duplicates
-                if (attendees.some(a => a.name.toLowerCase() === name.toLowerCase())) {
-                    throw new Error('Name already on list');
-                }
-                
-                attendees.push({
-                    name: name,
-                    timestamp: new Date().toISOString()
-                });
-                
-                localStorage.setItem('rsvps', JSON.stringify(attendees));
-                return { success: true };
-            }
+    if (USE_REAL_BACKEND) {
+        // Real backend (Google Sheets)
+        await fetch(API_URL, {
+            method: 'POST',
+            mode: 'no-cors',  // ADD THIS LINE
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: name,
+                timestamp: new Date().toISOString()
+            })
+        });
+        
+        // With no-cors, we can't check response, so just return success
+        return { success: true };
+    } else {
+        // LocalStorage demo stays the same
+        const attendees = getLocalAttendees();
+        
+        if (attendees.some(a => a.name.toLowerCase() === name.toLowerCase())) {
+            throw new Error('Name already on list');
         }
+        
+        attendees.push({
+            name: name,
+            timestamp: new Date().toISOString()
+        });
+        
+        localStorage.setItem('rsvps', JSON.stringify(attendees));
+        return { success: true };
+    }
+}
 
         async function loadAttendees() {
             try {
