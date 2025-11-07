@@ -419,10 +419,6 @@
             messageDiv.className = `message ${type}`;
             messageDiv.textContent = text;
             
-            setTimeout(() => {
-                messageDiv.className = '';
-                messageDiv.textContent = '';
-            }, 5000);
         }
 
         function escapeHtml(text) {
