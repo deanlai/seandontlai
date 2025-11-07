@@ -265,16 +265,19 @@
                     const duplicate = attendees.find(a => a.name.toLowerCase() === name.toLowerCase());
                     
                     if (duplicate) {
-                        showMessage('That name is already on the list! If this is you, you\'re all set. If you share a name with someone else, please add a last initial (e.g., "Sean L.")', 'info');
+                        showMessage('That name is already on the list! If this is you, you\'re all set. If you share a name with someone else, please add a last initial (e.g., "Sean L.")', 'info', false);
+                        addBtn.textContent = 'Add Me to the List';
+                        addBtn.disabled = false;
+                        removeBtn.disabled = false;
                         return;
                     }
                     
                     await addAttendee(name);
-                    showMessage('You\'re on the list!', 'success');
+                    showMessage('You\'re on the list!', 'success', true);
                     form.reset();
                     await loadAttendees();
                 } catch (error) {
-                    showMessage('Oops! Something went wrong. Try again?', 'error');
+                    showMessage('Oops! Something went wrong. Try again?', 'error', true);
                     console.error(error);
                 }
                 
@@ -286,14 +289,14 @@
                     const result = await removeAttendee(name);
                     
                     if (result.deleted) {
-                        showMessage('You\'ve been removed from the list.', 'success');
+                        showMessage('You\'ve been removed from the list.', 'success', true);
                         form.reset();
                         await loadAttendees();
                     } else {
-                        showMessage('Name not found. Make sure you typed it exactly as it appears in the list.', 'error');
+                        showMessage('Name not found. Make sure you typed it exactly as it appears in the list.', 'error', false);
                     }
                 } catch (error) {
-                    showMessage('Oops! Something went wrong. Try again?', 'error');
+                    showMessage('Oops! Something went wrong. Try again?', 'error', true);
                     console.error(error);
                 }
                 
