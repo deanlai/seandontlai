@@ -5,6 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sean don't Lai</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body{
+            background: #ffefae;
+        }
+        .box.energy{
+            background: #a1a39a;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .back-link a {
+            color: #000;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid #000;
+        }
+
+        .back-link a:hover {
+            background: #000;
+            color: #ffefae;
+        }
+
+    </style>
 </head>
 <body>
     <div class="container">
@@ -27,14 +52,6 @@
                     onkeypress="return keyPress(event, this.value, this.name)",
                     autocomplete="off"value="">
                     <h3>litres of water from room temperature.</h3>
-            </div>
-            <div class="box energy">
-                    <h3>Energy contained in</h3>
-                    <input id="butter" type="text" placeholder="Grams of butter" name="butter" \
-                    onblur="outputEnergies(this.value, this.name)", \
-                    onkeypress="return keyPress(event, this.value, this.name)",
-                    autocomplete="off"value="">
-                    <h3>grams of butter.</h3>
             </div>
             <div class="box energy">
                     <h3>Kinetic energy of</h3>
@@ -94,6 +111,11 @@
             </div>
         </div>
     </div>
+    </div>
+        <div class="back-link">
+        <a href="index.html">← Back to Home</a>
+    </div>
+
 
     <script src="js/energy.js"></script>
 </body>
