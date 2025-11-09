@@ -95,6 +95,33 @@ iframe {
     }
 }
 
+/* Disable hover effects on touch devices */
+@media (hover: none) {
+    a.box:hover,
+    .box.interactive:hover,
+    button:hover,
+    .back-link a:hover {
+        background: inherit;
+        color: inherit;
+    }
+}
+
+/* Use active state for touch instead */
+@media (hover: none) {
+    a.box:active,
+    .box.interactive:active {
+        background: #e8ebde;
+    }
+    
+    button:active {
+        background: #333;
+    }
+    
+    button.remove-btn:active {
+        background: #a52a2a;
+    }
+}
+
 /* ========== THEMES ========== */
 
 /* Pastel theme */
