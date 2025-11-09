@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Night RSVP</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Container - narrower than index */
+        body {
+            background-image: url("/seandontlai/docs/test/photos/fallen-angels-1995-poster-kevin-gonzalez-3826739346.jpg");
+
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background-color: #000;
+        }
+
+        .event-info {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 0.8rem;
+            color: white;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: #719470;
+            border: 3px solid #000;
+            border-left: 10px solid #000;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .form-prompt{
+            margin-bottom: .5rem;
+            font-size: 0.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px solid #000;
+            font-family: inherit;
+            font-size: .9rem;
+            background: white;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #000;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        button {
+            background: #000;
+            color: white;
+            border: 3px solid #000;
+            padding: 0.5rem;
+            cursor: pointer;
+            font-size: .75rem;
+            font-weight: 600;
+            font-family: inherit;
+        }
+
+        button:hover {
+            background: #333;
+        }
+
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+
+        button.remove-btn {
+            background: #8b0000;
+            border-color: #8b0000;
+        }
+
+        button.remove-btn:hover {
+            background: #a52a2a;
+        }
+
+        /* Attendee Section */
+        .attendee-section {
+            margin-top: 2rem;
+            color: white;
+        }
+
+        .attendee-count {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Grid for attendee boxes */
+        .attendee-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        /* Individual attendee box */
+        .attendee-box {
+            background: #eb5324;
+            border: 2px solid #000;
+            border-left: 8px solid #000;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 400;
+            text-align: left;
+            color:#000;
+        }
+
+        /* Messages */
+        .message {
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 2px solid #000;
+            font-size: .8rem;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .success {
+            background: #52ff8b;
+        }
+
+        .error {
+            background: #ffcccb;
+        }
+
+        .info {
+            background: #add8e6;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 1rem;
+            font-style: italic;
+        }
+
+        /* Back link */
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .back-link a {
+            color: #000;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid #fff;
+            color: white;
+        }
+
+        .back-link a:hover {
+            background: #000;
+            color: #719470;
+        }
+
+        /* Responsive - single column on mobile */
+        @media (max-width: 768px) {
+            .attendee-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="event-info">
+            <h1>Fallen Angels (1995)</h1>
+            <p><strong>Monday 11/24/25, 7:00pm</strong></p>
+            <p>100 Rochester Theatre</p></br>
+            <p>hong kong vibes exploring loneliness and fleeting love, alienation and yearning, and the ephemeral nature of life.</br>
+                ​follows two stories: one of a hitman and his agent who is in love with him, and the other of a mute ex-convict trying to find his way.</br>
+                ​99min runtime.</br>
+                ​snacks provided. guests welcome.
+</p>
+        </div>
+
+        <!-- RSVP Form -->
+        <div class="form-section">
+            <div id="message"></div>
+            
+            <form id="rsvp-form">
+                <p class="form-prompt">
+                    rsvp here. please add any guests as well.
+                </p>
+                <div class="form-group">
+                    <input type="text" id="name" required placeholder="enter your name">
+                </div>
+                
+                <div class="button-group">
+                    <button type="submit" id="add-btn" data-action="add">add me</button>
+                    <button type="button" id="remove-btn" class="remove-btn" data-action="remove">remove me</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Attendee List -->
+        <div class="attendee-section">
+            <div class="attendee-count" id="count">loading...</div>
+            <div id="attendees-container">
+                <div class="loading">loading attendees...</div>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="index.html">← back to home</a>
+        </div>
+    </div>
+
+    <script>
+        // Currently using Google Sheets backend
+        const USE_REAL_BACKEND = true;
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwHHs7Qnum8ooRVRHNXjQYMdtIvCeZBYnfNqbiuAfyoeHsXQwQsxBJYTy3GFiciqZ2f/exec';
+
+        const form = document.getElementById('rsvp-form');
+        const nameInput = document.getElementById('name');
+        const messageDiv = document.getElementById('message');
+        const attendeesContainer = document.getElementById('attendees-container');
+        const countDiv = document.getElementById('count');
+        const addBtn = document.getElementById('add-btn');
+        const removeBtn = document.getElementById('remove-btn');
+
+        // Load attendees on page load
+        loadAttendees();
+
+        // Handle form submission (Add button)
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await handleAction('add');
+        });
+
+        // Handle remove button click
+        removeBtn.addEventListener('click', async () => {
+            await handleAction('remove');
+        });
+
+        async function handleAction(action) {
+            const name = nameInput.value.trim();
+            
+            if (!name) return;
+            
+            // Disable both buttons
+            addBtn.disabled = true;
+            removeBtn.disabled = true;
+            
+            if (action === 'add') {
+                addBtn.textContent = 'adding...';
+                
+                try {
+                    // Check for duplicates first
+                    const attendees = await getAttendees();
+                    const duplicate = attendees.find(a => a.name.toLowerCase() === name.toLowerCase());
+                    
+                    if (duplicate) {
+                        showMessage('that name is already on the attendee list.', 'info', false);
+                        addBtn.textContent = 'add me';
+                        addBtn.disabled = false;
+                        removeBtn.disabled = false;
+                        return;
+                    }
+                    
+                    await addAttendee(name);
+                    showMessage('you\'re on the list. see you there.', 'success', true);
+                    form.reset();
+                    await loadAttendees();
+                } catch (error) {
+                    showMessage('oops! something went wrong. try again?', 'error', true);
+                    console.error(error);
+                }
+                
+                addBtn.textContent = 'add me';
+            } else {
+                removeBtn.textContent = 'removing...';
+                
+                try {
+                    const result = await removeAttendee(name);
+                    
+                    if (result.deleted) {
+                        showMessage('you\'ve been removed from the list. 😢', 'success', true);
+                        form.reset();
+                        await loadAttendees();
+                    } else {
+                        showMessage('name not found. type it exactly as it appears in the list.', 'error', false);
+                    }
+                } catch (error) {
+                    showMessage('oops! something went wrong. try again?', 'error', true);
+                    console.error(error);
+                }
+                
+                removeBtn.textContent = 'remove me';
+            }
+            
+            // Re-enable both buttons
+            addBtn.disabled = false;
+            removeBtn.disabled = false;
+        }
+
+        async function addAttendee(name) {
+            if (USE_REAL_BACKEND) {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: name,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+                
+                return { success: true };
+            } else {
+                const attendees = getLocalAttendees();
+                
+                attendees.push({
+                    name: name,
+                    timestamp: new Date().toISOString()
+                });
+                
+                localStorage.setItem('rsvps', JSON.stringify(attendees));
+                return { success: true };
+            }
+        }
+
+        async function removeAttendee(name) {
+            if (USE_REAL_BACKEND) {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'delete',
+                        name: name
+                    })
+                });
+                
+                // With no-cors, we can't verify success, so wait a bit and reload
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                const attendees = await getAttendees();
+                const stillThere = attendees.find(a => a.name.toLowerCase() === name.toLowerCase());
+                
+                return { deleted: !stillThere };
+            } else {
+                const attendees = getLocalAttendees();
+                const index = attendees.findIndex(a => a.name.toLowerCase() === name.toLowerCase());
+                
+                if (index > -1) {
+                    attendees.splice(index, 1);
+                    localStorage.setItem('rsvps', JSON.stringify(attendees));
+                    return { deleted: true };
+                }
+                
+                return { deleted: false };
+            }
+        }
+
+        async function loadAttendees() {
+            try {
+                const attendees = await getAttendees();
+                displayAttendees(attendees);
+            } catch (error) {
+                attendeesContainer.innerHTML = '<div class="error">Failed to load attendees</div>';
+                console.error(error);
+            }
+        }
+
+        async function getAttendees() {
+            if (USE_REAL_BACKEND) {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Failed to load attendees');
+                return await response.json();
+            } else {
+                const stored = localStorage.getItem('rsvps');
+                return stored ? JSON.parse(stored) : [];
+            }
+        }
+
+        function getLocalAttendees() {
+            const stored = localStorage.getItem('rsvps');
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        function displayAttendees(attendees) {
+            const count = attendees.length;
+            countDiv.textContent = `${count} ${count === 1 ? 'person' : 'people'} coming`;
+            
+            if (count === 0) {
+                attendeesContainer.innerHTML = '<div class="loading">be the first to rsvp!</div>';
+                return;
+            }
+            
+            const grid = document.createElement('div');
+            grid.className = 'attendee-grid';
+            
+            attendees.forEach(attendee => {
+                const box = document.createElement('div');
+                box.className = 'attendee-box';
+                box.textContent = escapeHtml(attendee.name);
+                grid.appendChild(box);
+            });
+            
+            attendeesContainer.innerHTML = '';
+            attendeesContainer.appendChild(grid);
+        }
+
+        function showMessage(text, type) {
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = text;
+            
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
