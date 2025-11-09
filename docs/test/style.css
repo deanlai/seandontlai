@@ -94,3 +94,97 @@ iframe {
         grid-template-columns: 1fr;
     }
 }
+
+/* ========== THEMES ========== */
+
+/* Pastel theme */
+body.pastel {
+    background: #fbe6a0;
+}
+
+body.pastel .form-section,
+body.pastel .attendee-box {
+    background: #f27291;
+}
+
+body.pastel button {
+    background: #f27291;
+    border-color: #f27291;
+}
+
+body.pastel button:hover {
+    background: #e05070;
+}
+
+/* Crimson-grey theme */
+body.crimson-grey {
+    background: #a2b0ad;
+}
+
+body.crimson-grey .form-section,
+body.crimson-grey .attendee-box {
+    background: #ab2439;
+    color: #fff;
+}
+
+body.crimson-grey button {
+    background: #ab2439;
+    border-color: #ab2439;
+}
+
+body.crimson-grey button:hover {
+    background: #8a1d2e;
+}
+
+body.crimson-grey label,
+body.crimson-grey .event-header {
+    color: #111;
+}
+
+/* Sulphur-black theme */
+body.sulphur-black {
+    background: #111314;
+    color: #f5ecc2;
+}
+
+body.sulphur-black .form-section,
+body.sulphur-black .attendee-box {
+    background: #f5ecc2;
+    color: #111314;
+    border-color: #f5ecc2;
+}
+
+body.sulphur-black button {
+    background: #f5ecc2;
+    color: #111314;
+    border-color: #f5ecc2;
+}
+
+body.sulphur-black button:hover {
+    background: #e5dcb2;
+}
+
+body.sulphur-black input {
+    background: #222;
+    color: #f5ecc2;
+    border-color: #f5ecc2;
+}
+
+/* Purple-orange theme */
+body.purple-orange {
+    background: #b73f74;
+}
+
+body.purple-orange .form-section,
+body.purple-orange .attendee-box {
+    background: #f37420;
+}
+
+body.purple-orange button {
+    background: #b73f74;
+    border-color: #b73f74;
+}
+
+body.purple-orange button:hover {
+    background: #9a3361;
+}
