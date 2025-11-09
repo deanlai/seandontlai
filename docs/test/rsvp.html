@@ -3,154 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Night RSVP</title>
+    <title>Movie Nights</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Container - narrower than index */
         .container {
-            max-width: 600px;
+            max-width: 900px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
 
         h1 {
             font-size: 1.5rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .event-info {
-            text-align: center;
             margin-bottom: 2rem;
-            font-size: 0.9rem;
+            text-align: center;
         }
 
-        /* Form Section */
-        .form-section {
+        /* Grid of event boxes */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        /* Event box */
+        .event-box {
             background: #a1a39a;
             border: 3px solid #000;
             border-left: 10px solid #000;
             padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.25rem;
-            font-weight: 600;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 0.5rem;
-            border: 2px solid #000;
-            font-family: inherit;
-            font-size: 1rem;
-            background: white;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #000;
-        }
-
-        .button-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-        }
-
-        button {
-            background: #000;
-            color: white;
-            border: 3px solid #000;
-            padding: 0.75rem;
+            min-height: 150px;
             cursor: pointer;
-            font-size: 1rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .event-box:hover {
+            background: #e8ebde;
+        }
+
+        .event-info {
+            flex-grow: 1;
+        }
+
+        .event-box h2 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
             font-weight: 600;
-            font-family: inherit;
         }
 
-        button:hover {
-            background: #333;
-        }
-
-        button:disabled {
-            background: #666;
-            cursor: not-allowed;
-        }
-
-        button.remove-btn {
-            background: #8b0000;
-            border-color: #8b0000;
-        }
-
-        button.remove-btn:hover {
-            background: #a52a2a;
-        }
-
-        /* Attendee Section */
-        .attendee-section {
-            margin-top: 2rem;
-        }
-
-        .attendee-count {
-            text-align: center;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        /* Grid for attendee boxes */
-        .attendee-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
-        }
-
-        /* Individual attendee box */
-        .attendee-box {
-            background: #a1a39a;
-            border: 2px solid #000;
-            border-left: 6px solid #000;
-            padding: 0.5rem 0.75rem;
+        .event-box .date {
             font-size: 0.9rem;
+            margin-bottom: 0.5rem;
             font-weight: 600;
-            text-align: left;
         }
 
-        /* Messages */
-        .message {
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 2px solid #000;
-            font-weight: 600;
-            text-align: center;
+        .event-box .movie {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
         }
 
-        .success {
-            background: #90ee90;
-        }
-
-        .error {
-            background: #ffcccb;
-        }
-
-        .info {
-            background: #add8e6;
+        .event-box .attendee-count {
+            font-size: 0.8rem;
+            color: #333;
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 2px solid #000;
         }
 
         .loading {
             text-align: center;
-            padding: 1rem;
+            padding: 3rem;
             font-style: italic;
         }
 
-        /* Back link */
+        .error {
+            background: #ffcccb;
+            border: 2px solid #000;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .no-events {
+            text-align: center;
+            padding: 3rem;
+            font-style: italic;
+        }
+
         .back-link {
             text-align: center;
             margin-top: 2rem;
@@ -168,13 +110,9 @@
             color: #d8a37b;
         }
 
-        /* Responsive - single column on mobile */
+        /* Responsive */
         @media (max-width: 768px) {
-            .attendee-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .button-group {
+            .events-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -182,37 +120,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>Movie Night 🎬</h1>
+        <h1>Upcoming Movie Nights 🎬</h1>
         
-        <div class="event-info">
-            <p><strong>Friday, 7:00 PM</strong></p>
-            <p>Studio Theatre</p>
-            <p>Movie TBD (vote in person!)</p>
-        </div>
-
-        <!-- RSVP Form -->
-        <div class="form-section">
-            <div id="message"></div>
-            
-            <form id="rsvp-form">
-                <div class="form-group">
-                    <label for="name">Your Name</label>
-                    <input type="text" id="name" required placeholder="Enter your name">
-                </div>
-                
-                <div class="button-group">
-                    <button type="submit" id="add-btn" data-action="add">Add Me to the List</button>
-                    <button type="button" id="remove-btn" class="remove-btn" data-action="remove">Remove Me from the List</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Attendee List -->
-        <div class="attendee-section">
-            <div class="attendee-count" id="count">Loading...</div>
-            <div id="attendees-container">
-                <div class="loading">Loading attendees...</div>
-            </div>
+        <div id="events-container">
+            <div class="loading">Loading events...</div>
         </div>
 
         <div class="back-link">
@@ -221,210 +132,73 @@
     </div>
 
     <script>
-        // Currently using Google Sheets backend
-        const USE_REAL_BACKEND = true;
         const API_URL = 'https://script.google.com/macros/s/AKfycbzkSc9i23CHNfRsaDUFwVVZ9tVyXHW3mqTP2aWdO6P_5qVsoaJX_8oIy2s4rg4mP-8R/exec';
 
-        const form = document.getElementById('rsvp-form');
-        const nameInput = document.getElementById('name');
-        const messageDiv = document.getElementById('message');
-        const attendeesContainer = document.getElementById('attendees-container');
-        const countDiv = document.getElementById('count');
-        const addBtn = document.getElementById('add-btn');
-        const removeBtn = document.getElementById('remove-btn');
+        // Load events on page load
+        loadEvents();
 
-        // Load attendees on page load
-        loadAttendees();
-
-        // Handle form submission (Add button)
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            await handleAction('add');
-        });
-
-        // Handle remove button click
-        removeBtn.addEventListener('click', async () => {
-            await handleAction('remove');
-        });
-
-        async function handleAction(action) {
-            const name = nameInput.value.trim();
+        async function loadEvents() {
+            const container = document.getElementById('events-container');
             
-            if (!name) return;
-            
-            // Disable both buttons
-            addBtn.disabled = true;
-            removeBtn.disabled = true;
-            
-            if (action === 'add') {
-                addBtn.textContent = 'Adding...';
-                
-                try {
-                    // Check for duplicates first
-                    const attendees = await getAttendees();
-                    const duplicate = attendees.find(a => a.name.toLowerCase() === name.toLowerCase());
-                    
-                    if (duplicate) {
-                        showMessage('That name is already on the list! If this is you, you\'re all set. If you share a name with someone else, please add a last initial (e.g., "Sean L.")', 'info', false);
-                        addBtn.textContent = 'Add Me to the List';
-                        addBtn.disabled = false;
-                        removeBtn.disabled = false;
-                        return;
-                    }
-                    
-                    await addAttendee(name);
-                    showMessage('You\'re on the list!', 'success', true);
-                    form.reset();
-                    await loadAttendees();
-                } catch (error) {
-                    showMessage('Oops! Something went wrong. Try again?', 'error', true);
-                    console.error(error);
-                }
-                
-                addBtn.textContent = 'Add Me to the List';
-            } else {
-                removeBtn.textContent = 'Removing...';
-                
-                try {
-                    const result = await removeAttendee(name);
-                    
-                    if (result.deleted) {
-                        showMessage('You\'ve been removed from the list.', 'success', true);
-                        form.reset();
-                        await loadAttendees();
-                    } else {
-                        showMessage('Name not found. Make sure you typed it exactly as it appears in the list.', 'error', false);
-                    }
-                } catch (error) {
-                    showMessage('Oops! Something went wrong. Try again?', 'error', true);
-                    console.error(error);
-                }
-                
-                removeBtn.textContent = 'Remove Me from the List';
-            }
-            
-            // Re-enable both buttons
-            addBtn.disabled = false;
-            removeBtn.disabled = false;
-        }
-
-        async function addAttendee(name) {
-            if (USE_REAL_BACKEND) {
-                await fetch(API_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: name,
-                        timestamp: new Date().toISOString()
-                    })
-                });
-                
-                return { success: true };
-            } else {
-                const attendees = getLocalAttendees();
-                
-                attendees.push({
-                    name: name,
-                    timestamp: new Date().toISOString()
-                });
-                
-                localStorage.setItem('rsvps', JSON.stringify(attendees));
-                return { success: true };
-            }
-        }
-
-        async function removeAttendee(name) {
-            if (USE_REAL_BACKEND) {
-                await fetch(API_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'delete',
-                        name: name
-                    })
-                });
-                
-                // With no-cors, we can't verify success, so wait a bit and reload
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                const attendees = await getAttendees();
-                const stillThere = attendees.find(a => a.name.toLowerCase() === name.toLowerCase());
-                
-                return { deleted: !stillThere };
-            } else {
-                const attendees = getLocalAttendees();
-                const index = attendees.findIndex(a => a.name.toLowerCase() === name.toLowerCase());
-                
-                if (index > -1) {
-                    attendees.splice(index, 1);
-                    localStorage.setItem('rsvps', JSON.stringify(attendees));
-                    return { deleted: true };
-                }
-                
-                return { deleted: false };
-            }
-        }
-
-        async function loadAttendees() {
             try {
-                const attendees = await getAttendees();
-                displayAttendees(attendees);
+                const response = await fetch(`${API_URL}?action=getEvents`);
+                if (!response.ok) throw new Error('Failed to load events');
+                
+                const events = await response.json();
+                
+                if (events.length === 0) {
+                    container.innerHTML = '<div class="no-events">No upcoming events scheduled yet.</div>';
+                    return;
+                }
+                
+                displayEvents(events);
             } catch (error) {
-                attendeesContainer.innerHTML = '<div class="error">Failed to load attendees</div>';
+                container.innerHTML = '<div class="error">Failed to load events. Please try again later.</div>';
                 console.error(error);
             }
         }
 
-        async function getAttendees() {
-            if (USE_REAL_BACKEND) {
-                const response = await fetch(API_URL);
-                if (!response.ok) throw new Error('Failed to load attendees');
-                return await response.json();
-            } else {
-                const stored = localStorage.getItem('rsvps');
-                return stored ? JSON.parse(stored) : [];
-            }
-        }
-
-        function getLocalAttendees() {
-            const stored = localStorage.getItem('rsvps');
-            return stored ? JSON.parse(stored) : [];
-        }
-
-        function displayAttendees(attendees) {
-            const count = attendees.length;
-            countDiv.textContent = `${count} ${count === 1 ? 'person' : 'people'} coming`;
-            
-            if (count === 0) {
-                attendeesContainer.innerHTML = '<div class="loading">Be the first to RSVP!</div>';
-                return;
-            }
+        function displayEvents(events) {
+            const container = document.getElementById('events-container');
             
             const grid = document.createElement('div');
-            grid.className = 'attendee-grid';
+            grid.className = 'events-grid';
             
-            attendees.forEach(attendee => {
-                const box = document.createElement('div');
-                box.className = 'attendee-box';
-                box.textContent = escapeHtml(attendee.name);
+            events.forEach(event => {
+                const box = document.createElement('a');
+                box.className = 'event-box';
+                box.href = `rsvp-event.html?id=${event.event_id}`;
+                
+                const info = document.createElement('div');
+                info.className = 'event-info';
+                
+                const title = document.createElement('h2');
+                title.textContent = 'Movie Night';
+                
+                const date = document.createElement('div');
+                date.className = 'date';
+                date.textContent = event.date;
+                
+                const movie = document.createElement('div');
+                movie.className = 'movie';
+                movie.textContent = event.movie || 'Movie TBD';
+                
+                info.appendChild(title);
+                info.appendChild(date);
+                info.appendChild(movie);
+                
+                const count = document.createElement('div');
+                count.className = 'attendee-count';
+                const attendeeText = event.attendee_count === 1 ? 'person' : 'people';
+                count.textContent = `${event.attendee_count} ${attendeeText} coming`;
+                
+                box.appendChild(info);
+                box.appendChild(count);
                 grid.appendChild(box);
             });
             
-            attendeesContainer.innerHTML = '';
-            attendeesContainer.appendChild(grid);
-        }
-
-        function showMessage(text, type) {
-            messageDiv.className = `message ${type}`;
-            messageDiv.textContent = text;
-            
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
+            container.innerHTML = '';
+            container.appendChild(grid);
         }
     </script>
 </body>
