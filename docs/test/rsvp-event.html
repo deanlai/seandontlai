@@ -7,42 +7,46 @@
     <link rel="stylesheet" href="style.css">
     <style>
         /* Container - narrower than index */
-        body {
-            background-image: url("/seandontlai/docs/test/photos/fallen-angels-1995-poster-kevin-gonzalez-3826739346.jpg");
-
-        }
-
         .container {
             max-width: 600px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
 
-        h1 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            text-align: center;
-            background-color: #000;
-        }
-
-        .event-info {
+        /* Event header */
+        .event-header {
             text-align: center;
             margin-bottom: 2rem;
-            font-size: 0.8rem;
-            color: white;
+        }
+
+        .event-header h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-header .date {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-header .location {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .event-header .description {
+            font-size: 0.9rem;
+            font-style: italic;
         }
 
         /* Form Section */
         .form-section {
-            background: #719470;
+            background: #a1a39a;
             border: 3px solid #000;
             border-left: 10px solid #000;
             padding: 1.5rem;
             margin-bottom: 2rem;
-        }
-        .form-prompt{
-            margin-bottom: .5rem;
-            font-size: 0.8rem;
         }
 
         .form-group {
@@ -60,7 +64,7 @@
             padding: 0.5rem;
             border: 2px solid #000;
             font-family: inherit;
-            font-size: .9rem;
+            font-size: 1rem;
             background: white;
         }
 
@@ -79,9 +83,9 @@
             background: #000;
             color: white;
             border: 3px solid #000;
-            padding: 0.5rem;
+            padding: 0.75rem;
             cursor: pointer;
-            font-size: .75rem;
+            font-size: 1rem;
             font-weight: 600;
             font-family: inherit;
         }
@@ -107,7 +111,6 @@
         /* Attendee Section */
         .attendee-section {
             margin-top: 2rem;
-            color: white;
         }
 
         .attendee-count {
@@ -126,14 +129,13 @@
 
         /* Individual attendee box */
         .attendee-box {
-            background: #eb5324;
+            background: #a1a39a;
             border: 2px solid #000;
-            border-left: 8px solid #000;
+            border-left: 6px solid #000;
             padding: 0.5rem 0.75rem;
-            font-size: 0.8rem;
-            font-weight: 400;
+            font-size: 0.9rem;
+            font-weight: 600;
             text-align: left;
-            color:#000;
         }
 
         /* Messages */
@@ -141,13 +143,12 @@
             padding: 0.75rem;
             margin-bottom: 1rem;
             border: 2px solid #000;
-            font-size: .8rem;
             font-weight: 600;
-            text-align: left;
+            text-align: center;
         }
 
         .success {
-            background: #52ff8b;
+            background: #90ee90;
         }
 
         .error {
@@ -160,7 +161,7 @@
 
         .loading {
             text-align: center;
-            padding: 1rem;
+            padding: 2rem;
             font-style: italic;
         }
 
@@ -174,13 +175,12 @@
             color: #000;
             font-weight: 600;
             text-decoration: none;
-            border-bottom: 2px solid #fff;
-            color: white;
+            border-bottom: 2px solid #000;
         }
 
         .back-link a:hover {
             background: #000;
-            color: #719470;
+            color: #d8a37b;
         }
 
         /* Responsive - single column on mobile */
@@ -197,228 +197,114 @@
 </head>
 <body>
     <div class="container">
-        
-        <div class="event-info">
-            <h1>Fallen Angels (1995)</h1>
-            <p><strong>Monday 11/24/25, 7:00pm</strong></p>
-            <p>100 Rochester Theatre</p></br>
-            <p>hong kong vibes exploring loneliness and fleeting love, alienation and yearning, and the ephemeral nature of life.</br>
-                ​follows two stories: one of a hitman and his agent who is in love with him, and the other of a mute ex-convict trying to find his way.</br>
-                ​99min runtime.</br>
-                ​snacks provided. guests welcome.
-</p>
-        </div>
-
-        <!-- RSVP Form -->
-        <div class="form-section">
-            <div id="message"></div>
-            
-            <form id="rsvp-form">
-                <p class="form-prompt">
-                    rsvp here. please add any guests as well.
-                </p>
-                <div class="form-group">
-                    <input type="text" id="name" required placeholder="enter your name">
-                </div>
-                
-                <div class="button-group">
-                    <button type="submit" id="add-btn" data-action="add">add me</button>
-                    <button type="button" id="remove-btn" class="remove-btn" data-action="remove">remove me</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Attendee List -->
-        <div class="attendee-section">
-            <div class="attendee-count" id="count">loading...</div>
-            <div id="attendees-container">
-                <div class="loading">loading attendees...</div>
-            </div>
+        <div id="content">
+            <div class="loading">Loading event...</div>
         </div>
 
         <div class="back-link">
-            <a href="index.html">← back to home</a>
+            <a href="rsvp.html">← Back to Events</a>
         </div>
     </div>
 
     <script>
-        // Currently using Google Sheets backend
-        const USE_REAL_BACKEND = true;
         const API_URL = 'https://script.google.com/macros/s/AKfycbwHHs7Qnum8ooRVRHNXjQYMdtIvCeZBYnfNqbiuAfyoeHsXQwQsxBJYTy3GFiciqZ2f/exec';
+        
+        let currentEventId = null;
+        let currentTheme = 'default';
 
-        const form = document.getElementById('rsvp-form');
-        const nameInput = document.getElementById('name');
-        const messageDiv = document.getElementById('message');
-        const attendeesContainer = document.getElementById('attendees-container');
-        const countDiv = document.getElementById('count');
-        const addBtn = document.getElementById('add-btn');
-        const removeBtn = document.getElementById('remove-btn');
+        // Get event ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = urlParams.get('id');
 
-        // Load attendees on page load
-        loadAttendees();
-
-        // Handle form submission (Add button)
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            await handleAction('add');
-        });
-
-        // Handle remove button click
-        removeBtn.addEventListener('click', async () => {
-            await handleAction('remove');
-        });
-
-        async function handleAction(action) {
-            const name = nameInput.value.trim();
-            
-            if (!name) return;
-            
-            // Disable both buttons
-            addBtn.disabled = true;
-            removeBtn.disabled = true;
-            
-            if (action === 'add') {
-                addBtn.textContent = 'adding...';
-                
-                try {
-                    // Check for duplicates first
-                    const attendees = await getAttendees();
-                    const duplicate = attendees.find(a => a.name.toLowerCase() === name.toLowerCase());
-                    
-                    if (duplicate) {
-                        showMessage('that name is already on the attendee list.', 'info', false);
-                        addBtn.textContent = 'add me';
-                        addBtn.disabled = false;
-                        removeBtn.disabled = false;
-                        return;
-                    }
-                    
-                    await addAttendee(name);
-                    showMessage('you\'re on the list. see you there.', 'success', true);
-                    form.reset();
-                    await loadAttendees();
-                } catch (error) {
-                    showMessage('oops! something went wrong. try again?', 'error', true);
-                    console.error(error);
-                }
-                
-                addBtn.textContent = 'add me';
-            } else {
-                removeBtn.textContent = 'removing...';
-                
-                try {
-                    const result = await removeAttendee(name);
-                    
-                    if (result.deleted) {
-                        showMessage('you\'ve been removed from the list. 😢', 'success', true);
-                        form.reset();
-                        await loadAttendees();
-                    } else {
-                        showMessage('name not found. type it exactly as it appears in the list.', 'error', false);
-                    }
-                } catch (error) {
-                    showMessage('oops! something went wrong. try again?', 'error', true);
-                    console.error(error);
-                }
-                
-                removeBtn.textContent = 'remove me';
-            }
-            
-            // Re-enable both buttons
-            addBtn.disabled = false;
-            removeBtn.disabled = false;
+        if (!eventId) {
+            document.getElementById('content').innerHTML = '<div class="error">No event specified</div>';
+        } else {
+            currentEventId = eventId;
+            loadEvent();
         }
 
-        async function addAttendee(name) {
-            if (USE_REAL_BACKEND) {
-                await fetch(API_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: name,
-                        timestamp: new Date().toISOString()
-                    })
-                });
-                
-                return { success: true };
-            } else {
-                const attendees = getLocalAttendees();
-                
-                attendees.push({
-                    name: name,
-                    timestamp: new Date().toISOString()
-                });
-                
-                localStorage.setItem('rsvps', JSON.stringify(attendees));
-                return { success: true };
-            }
-        }
-
-        async function removeAttendee(name) {
-            if (USE_REAL_BACKEND) {
-                await fetch(API_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'delete',
-                        name: name
-                    })
-                });
-                
-                // With no-cors, we can't verify success, so wait a bit and reload
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                const attendees = await getAttendees();
-                const stillThere = attendees.find(a => a.name.toLowerCase() === name.toLowerCase());
-                
-                return { deleted: !stillThere };
-            } else {
-                const attendees = getLocalAttendees();
-                const index = attendees.findIndex(a => a.name.toLowerCase() === name.toLowerCase());
-                
-                if (index > -1) {
-                    attendees.splice(index, 1);
-                    localStorage.setItem('rsvps', JSON.stringify(attendees));
-                    return { deleted: true };
-                }
-                
-                return { deleted: false };
-            }
-        }
-
-        async function loadAttendees() {
+        async function loadEvent() {
+            const container = document.getElementById('content');
+            
             try {
-                const attendees = await getAttendees();
-                displayAttendees(attendees);
+                // POST request to trigger the script
+                await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'getEvent',
+                        event_id: currentEventId
+                    })
+                });
+                
+                // Wait a moment
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // GET request to read data
+                const response = await fetch(`${API_URL}?action=getEvent&event_id=${currentEventId}`);
+                const event = await response.json();
+                
+                if (event.error) {
+                    container.innerHTML = `<div class="error">${event.error}</div>`;
+                    return;
+                }
+                
+                // Apply theme
+                currentTheme = event.theme || 'default';
+                document.body.className = currentTheme;
+                
+                displayEvent(event);
             } catch (error) {
-                attendeesContainer.innerHTML = '<div class="error">Failed to load attendees</div>';
+                container.innerHTML = '<div class="error">Failed to load event. Please try again later.</div>';
                 console.error(error);
             }
         }
 
-        async function getAttendees() {
-            if (USE_REAL_BACKEND) {
-                const response = await fetch(API_URL);
-                if (!response.ok) throw new Error('Failed to load attendees');
-                return await response.json();
-            } else {
-                const stored = localStorage.getItem('rsvps');
-                return stored ? JSON.parse(stored) : [];
-            }
-        }
+        function displayEvent(event) {
+            const container = document.getElementById('content');
+            
+            container.innerHTML = `
+                <div class="event-header">
+                    <h1>${escapeHtml(event.movie || 'Movie Night')}</h1>
+                    <div class="date">${escapeHtml(event.date)}</div>
+                    <div class="location">${escapeHtml(event.location)}</div>
+                    ${event.description ? `<div class="description">${event.description}</div>` : ''}
+                </div>
 
-        function getLocalAttendees() {
-            const stored = localStorage.getItem('rsvps');
-            return stored ? JSON.parse(stored) : [];
+                <!-- RSVP Form -->
+                <div class="form-section">
+                    <div id="message"></div>
+                    
+                    <form id="rsvp-form">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" required placeholder="Enter your name">
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="submit" id="add-btn" data-action="add">Add Me to the List</button>
+                            <button type="button" id="remove-btn" class="remove-btn" data-action="remove">Remove Me from the List</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Attendee List -->
+                <div class="attendee-section">
+                    <div class="attendee-count" id="count">${event.attendees.length} ${event.attendees.length === 1 ? 'person' : 'people'} coming</div>
+                    <div id="attendees-container"></div>
+                </div>
+            `;
+            
+            displayAttendees(event.attendees);
+            setupFormHandlers();
         }
 
         function displayAttendees(attendees) {
-            const count = attendees.length;
-            countDiv.textContent = `${count} ${count === 1 ? 'person' : 'people'} coming`;
+            const container = document.getElementById('attendees-container');
             
-            if (count === 0) {
-                attendeesContainer.innerHTML = '<div class="loading">be the first to rsvp!</div>';
+            if (attendees.length === 0) {
+                container.innerHTML = '<div class="loading">Be the first to RSVP!</div>';
                 return;
             }
             
@@ -432,14 +318,134 @@
                 grid.appendChild(box);
             });
             
-            attendeesContainer.innerHTML = '';
-            attendeesContainer.appendChild(grid);
+            container.innerHTML = '';
+            container.appendChild(grid);
         }
 
-        function showMessage(text, type) {
-            messageDiv.className = `message ${type}`;
-            messageDiv.textContent = text;
+        function setupFormHandlers() {
+            const form = document.getElementById('rsvp-form');
+            const addBtn = document.getElementById('add-btn');
+            const removeBtn = document.getElementById('remove-btn');
+            const nameInput = document.getElementById('name');
+            const messageDiv = document.getElementById('message');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                messageDiv.className = '';
+                messageDiv.textContent = '';
+                await handleAction('add');
+            });
+
+            removeBtn.addEventListener('click', async () => {
+                messageDiv.className = '';
+                messageDiv.textContent = '';
+                await handleAction('remove');
+            });
+
+            async function handleAction(action) {
+                const name = nameInput.value.trim();
+                
+                if (!name) return;
+                
+                addBtn.disabled = true;
+                removeBtn.disabled = true;
+                
+                if (action === 'add') {
+                    addBtn.textContent = 'Adding...';
+                    
+                    try {
+                        // Check for duplicates first
+                        const response = await fetch(`${API_URL}?action=getAttendees&event_id=${currentEventId}`);
+                        const attendees = await response.json();
+                        const duplicate = attendees.find(a => a.name.toLowerCase() === name.toLowerCase());
+                        
+                        if (duplicate) {
+                            showMessage('That name is already on the list! If this is you, you\'re all set. If you share a name with someone else, please add a last initial (e.g., "Sean L.")', 'info');
+                            addBtn.textContent = 'Add Me to the List';
+                            addBtn.disabled = false;
+                            removeBtn.disabled = false;
+                            return;
+                        }
+                        
+                        await addAttendee(name);
+                        showMessage('You\'re on the list!', 'success');
+                        form.reset();
+                        await loadEvent();
+                    } catch (error) {
+                        showMessage('Oops! Something went wrong. Try again?', 'error');
+                        console.error(error);
+                    }
+                    
+                    addBtn.textContent = 'Add Me to the List';
+                } else {
+                    removeBtn.textContent = 'Removing...';
+                    
+                    try {
+                        const result = await removeAttendee(name);
+                        
+                        if (result.deleted) {
+                            showMessage('You\'ve been removed from the list.', 'success');
+                            form.reset();
+                            await loadEvent();
+                        } else {
+                            showMessage('Name not found. Make sure you typed it exactly as it appears in the list.', 'error');
+                        }
+                    } catch (error) {
+                        showMessage('Oops! Something went wrong. Try again?', 'error');
+                        console.error(error);
+                    }
+                    
+                    removeBtn.textContent = 'Remove Me from the List';
+                }
+                
+                addBtn.disabled = false;
+                removeBtn.disabled = false;
+            }
+
+            function showMessage(text, type) {
+                messageDiv.className = `message ${type}`;
+                messageDiv.textContent = text;
+            }
+        }
+
+        async function addAttendee(name) {
+            await fetch(API_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'add',
+                    event_id: currentEventId,
+                    name: name
+                })
+            });
             
+            // Wait for it to process
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            return { success: true };
+        }
+
+        async function removeAttendee(name) {
+            await fetch(API_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'delete',
+                    event_id: currentEventId,
+                    name: name
+                })
+            });
+            
+            // Wait and check if it was deleted
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            const response = await fetch(`${API_URL}?action=getAttendees&event_id=${currentEventId}`);
+            const attendees = await response.json();
+            const stillThere = attendees.find(a => a.name.toLowerCase() === name.toLowerCase());
+            
+            return { deleted: !stillThere };
         }
 
         function escapeHtml(text) {
