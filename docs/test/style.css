@@ -18,6 +18,12 @@ body {
     margin: 2rem auto;
     padding: 0 1rem;
 }
+.container h1{
+    font-size: 1rem;
+}
+.container p{
+    font-size: .8rem;
+}
 
 /* Grid of boxes */
 .grid {
@@ -61,6 +67,23 @@ a.box:hover,
     font-weight: 600;
     margin-top: -15px;
 }
+.box.energy{
+    height: auto;
+    padding: .3rem 1rem;
+}
+.box.energy h3 {
+    font-size: .8rem;
+    padding: .4rem 0;
+    font-weight: 300;
+}
+.box.energy input[type="text"]{
+            width: 100%;
+            padding: 0.2rem;
+            border: 2px solid #000;
+            font-family: inherit;
+            font-size: .8rem;
+            background: white;
+}
 
 .box p {
     color: #000;
@@ -94,7 +117,6 @@ iframe {
         grid-template-columns: 1fr;
     }
 }
-
 /* Disable hover effects on touch devices */
 @media (hover: none) {
     a.box:hover,
