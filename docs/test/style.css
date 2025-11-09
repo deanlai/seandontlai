@@ -128,8 +128,8 @@ body.crimson-grey .attendee-box {
 }
 
 body.crimson-grey button {
-    background: #ab2439;
-    border-color: #ab2439;
+    background: #111;
+    border-color: #111;
 }
 
 body.crimson-grey button:hover {
@@ -142,32 +142,40 @@ body.crimson-grey .event-header {
 }
 
 /* Sulphur-black theme */
+
 body.sulphur-black {
     background: #111314;
     color: #f5ecc2;
+}
+
+body.sulphur-black .event-header{
+    background: #f5ecc2;
+    color:#000;
+    
 }
 
 body.sulphur-black .form-section,
 body.sulphur-black .attendee-box {
     background: #f5ecc2;
     color: #111314;
-    border-color: #f5ecc2;
+    border-color: #111314;
 }
 
 body.sulphur-black button {
-    background: #f5ecc2;
+    background: #b09f36;
+    border-color: #b09f36;
     color: #111314;
-    border-color: #f5ecc2;
+    
 }
 
 body.sulphur-black button:hover {
-    background: #e5dcb2;
+    background: #756a24;
 }
 
 body.sulphur-black input {
     background: #222;
     color: #f5ecc2;
-    border-color: #f5ecc2;
+    border-color: #111314;
 }
 
 /* Purple-orange theme */

@@ -20,36 +20,42 @@
 
         /* Event header */
         .event-header {
-            text-align: center;
+            background-color: #a2b0ad;
+            text-align: left;
             margin-bottom: 2rem;
+            border: 3px solid #000;
+            border-top: 10px solid #000;
+            padding-left: 1.5rem;
+            padding-bottom: 0rem;  /* Add bottom padding for the p tag */
         }
 
         .event-header h1 {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
 
         .event-header .date {
-            font-size: 1rem;
+            font-size: .9rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
         .event-header .location {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             margin-bottom: 1rem;
         }
 
         .event-header .description {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-style: italic;
+            padding-bottom: .5rem;
         }
 
         /* Form Section */
         .form-section {
             background: #a1a39a;
             border: 3px solid #000;
-            border-left: 10px solid #000;
+            border-bottom: 10px solid #000;
             padding: 1.5rem;
             margin-bottom: 2rem;
         }
@@ -60,6 +66,7 @@
 
         label {
             display: block;
+            font-size: .9rem;
             margin-bottom: 0.25rem;
             font-weight: 600;
         }
@@ -69,7 +76,7 @@
             padding: 0.5rem;
             border: 2px solid #000;
             font-family: inherit;
-            font-size: 1rem;
+            font-size: .9rem;
             background: white;
         }
 
@@ -87,10 +94,10 @@
         button {
             background: #000;
             color: white;
-            border: 3px solid #000;
+            border:none;
             padding: 0.75rem;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: .7rem;
             font-weight: 600;
             font-family: inherit;
         }
@@ -120,7 +127,7 @@
 
         .attendee-count {
             text-align: center;
-            font-weight: 600;
+            font-weight: 100;
             margin-bottom: 1rem;
             font-size: 1.1rem;
         }
@@ -139,7 +146,7 @@
             border-left: 6px solid #000;
             padding: 0.5rem 0.75rem;
             font-size: 0.9rem;
-            font-weight: 600;
+            font-weight: 300;
             text-align: left;
         }
 
@@ -148,7 +155,8 @@
             padding: 0.75rem;
             margin-bottom: 1rem;
             border: 2px solid #000;
-            font-weight: 600;
+            font-weight: 400;
+            font-size: .8rem;
             text-align: center;
         }
 
@@ -185,7 +193,7 @@
 
         .back-link a:hover {
             background: #000;
-            color: #d8a37b;
+            color: #ddd;
         }
 
         /* Responsive - single column on mobile */
@@ -263,8 +271,8 @@
                 // Apply background image if specified
                 if (event.background_image) {
                     document.body.style.setProperty('background-image', `url('${event.background_image}')`, 'important');
-                    document.body.style.backgroundSize = 'cover';
-                    document.body.style.backgroundPosition = 'center';
+                    document.body.style.backgroundSize = 'auto';
+                    document.body.style.backgroundPosition = 'repeat';
                     document.body.style.backgroundAttachment = 'fixed';
                 }
                 
@@ -292,13 +300,13 @@
                     
                     <form id="rsvp-form">
                         <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" required placeholder="Enter your name">
+                            <label for="name">rsvp here for yourself and any guests</label>
+                            <input type="text" id="name" required placeholder="enter your name">
                         </div>
                         
                         <div class="button-group">
-                            <button type="submit" id="add-btn" data-action="add">Add Me to the List</button>
-                            <button type="button" id="remove-btn" class="remove-btn" data-action="remove">Remove Me from the List</button>
+                            <button type="submit" id="add-btn" data-action="add">add me</button>
+                            <button type="button" id="remove-btn" class="remove-btn" data-action="remove">remove me</button>
                         </div>
                     </form>
                 </div>
@@ -318,7 +326,7 @@
             const container = document.getElementById('attendees-container');
             
             if (attendees.length === 0) {
-                container.innerHTML = '<div class="loading">Be the first to RSVP!</div>';
+                container.innerHTML = '<div class="loading">be the first to rsvp!</div>';
                 return;
             }
             
@@ -365,7 +373,7 @@
                 removeBtn.disabled = true;
                 
                 if (action === 'add') {
-                    addBtn.textContent = 'Adding...';
+                    addBtn.textContent = 'adding...';
                     
                     try {
                         // Check for duplicates first
@@ -374,15 +382,15 @@
                         const duplicate = attendees.find(a => a.name.toLowerCase() === name.toLowerCase());
                         
                         if (duplicate) {
-                            showMessage('That name is already on the list! If this is you, you\'re all set. If you share a name with someone else, please add a last initial (e.g., "Sean L.")', 'info');
-                            addBtn.textContent = 'Add Me to the List';
+                            showMessage('name is already on the list. please choose another name or add an initial', 'info');
+                            addBtn.textContent = 'add me';
                             addBtn.disabled = false;
                             removeBtn.disabled = false;
                             return;
                         }
                         
                         await addAttendee(name);
-                        showMessage('You\'re on the list!', 'success');
+                        showMessage('you\'re on the list!', 'success');
                         form.reset();
                         await loadEvent();
                     } catch (error) {
@@ -390,26 +398,26 @@
                         console.error(error);
                     }
                     
-                    addBtn.textContent = 'Add Me to the List';
+                    addBtn.textContent = 'add me';
                 } else {
-                    removeBtn.textContent = 'Removing...';
+                    removeBtn.textContent = 'removing...';
                     
                     try {
                         const result = await removeAttendee(name);
                         
                         if (result.deleted) {
-                            showMessage('You\'ve been removed from the list.', 'success');
+                            showMessage('you\'ve off the list. 😢', 'success');
                             form.reset();
                             await loadEvent();
                         } else {
-                            showMessage('Name not found. Make sure you typed it exactly as it appears in the list.', 'error');
+                            showMessage('name not found. make sure you typed it exactly as it appears in the list.', 'error');
                         }
                     } catch (error) {
                         showMessage('Oops! Something went wrong. Try again?', 'error');
                         console.error(error);
                     }
                     
-                    removeBtn.textContent = 'Remove Me from the List';
+                    removeBtn.textContent = 'remove me';
                 }
                 
                 addBtn.disabled = false;
@@ -441,6 +449,17 @@
         }
 
         async function removeAttendee(name) {
+            // Get current attendees before deletion
+            const beforeResponse = await fetch(`${API_URL}?action=getAttendees&event_id=${currentEventId}`);
+            const beforeAttendees = await beforeResponse.json();
+            const existsBefore = beforeAttendees.find(a => a.name.toLowerCase() === name.toLowerCase());
+            
+            // If name doesn't exist, return early
+            if (!existsBefore) {
+                return { deleted: false };
+            }
+            
+            // Delete the attendee
             await fetch(API_URL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -455,9 +474,9 @@
             // Wait and check if it was deleted
             await new Promise(resolve => setTimeout(resolve, 1000));
             
-            const response = await fetch(`${API_URL}?action=getAttendees&event_id=${currentEventId}`);
-            const attendees = await response.json();
-            const stillThere = attendees.find(a => a.name.toLowerCase() === name.toLowerCase());
+            const afterResponse = await fetch(`${API_URL}?action=getAttendees&event_id=${currentEventId}`);
+            const afterAttendees = await afterResponse.json();
+            const stillThere = afterAttendees.find(a => a.name.toLowerCase() === name.toLowerCase());
             
             return { deleted: !stillThere };
         }
