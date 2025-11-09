@@ -262,7 +262,7 @@
 
                 // Apply background image if specified
                 if (event.background_image) {
-                    document.body.style.backgroundImage = `url('${event.background_image}')`;
+                    document.body.style.setProperty('background-image', `url('${event.background_image}')`, 'important');
                     document.body.style.backgroundSize = 'cover';
                     document.body.style.backgroundPosition = 'center';
                     document.body.style.backgroundAttachment = 'fixed';
