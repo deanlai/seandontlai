@@ -6,6 +6,15 @@
     <title>Movie Night RSVP</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Hide content until theme loads */
+        body:not(.theme-loaded) #content {
+            opacity: 0;
+        }
+
+        body.theme-loaded #content {
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
         /* Container - narrower than index */
         .container {
             max-width: 600px;
@@ -253,6 +262,7 @@
                 // Apply theme
                 currentTheme = event.theme || 'default';
                 document.body.className = currentTheme;
+                document.body.classList.add('theme-loaded');
                 
                 displayEvent(event);
             } catch (error) {
