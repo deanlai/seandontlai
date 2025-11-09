@@ -259,6 +259,14 @@
                 currentTheme = event.theme || 'default';
                 document.body.className = currentTheme;
                 document.body.classList.add('theme-loaded');
+
+                // Apply background image if specified
+                if (event.background_image) {
+                    document.body.style.backgroundImage = `url('${event.background_image}')`;
+                    document.body.style.backgroundSize = 'cover';
+                    document.body.style.backgroundPosition = 'center';
+                    document.body.style.backgroundAttachment = 'fixed';
+                }
                 
                 displayEvent(event);
             } catch (error) {
