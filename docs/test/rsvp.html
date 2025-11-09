@@ -132,7 +132,7 @@
     </div>
 
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbwHHs7Qnum8ooRVRHNXjQYMdtIvCeZBYnfNqbiuAfyoeHsXQwQsxBJYTy3GFiciqZ2f/exec';
+        const API_URL = 'https://script.google.com/macros/s/YOUR_NEW_SCRIPT_ID/exec';
 
         // Load events on page load
         loadEvents();
@@ -141,9 +141,21 @@
             const container = document.getElementById('events-container');
             
             try {
-                const response = await fetch(`${API_URL}?action=getEvents`);
-                if (!response.ok) throw new Error('Failed to load events');
+                // Use POST with no-cors (same pattern as the working RSVP page)
+                await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'getEvents'
+                    })
+                });
                 
+                // Wait a moment for the response to process
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Now fetch with GET to read the data
+                const response = await fetch(`${API_URL}?action=getEvents`);
                 const events = await response.json();
                 
                 if (events.length === 0) {
@@ -172,20 +184,23 @@
                 const info = document.createElement('div');
                 info.className = 'event-info';
                 
-                const title = document.createElement('h2');
-                title.textContent = 'Movie Night';
+                // Movie title (main heading)
+                const movie = document.createElement('h2');
+                movie.textContent = event.movie || 'Movie TBD';
                 
+                // Date/time
                 const date = document.createElement('div');
                 date.className = 'date';
                 date.textContent = event.date;
                 
-                const movie = document.createElement('div');
-                movie.className = 'movie';
-                movie.textContent = event.movie || 'Movie TBD';
+                // Description
+                const description = document.createElement('div');
+                description.className = 'movie';
+                description.innerHTML = event.description || '';
                 
-                info.appendChild(title);
-                info.appendChild(date);
                 info.appendChild(movie);
+                info.appendChild(date);
+                info.appendChild(description);
                 
                 const count = document.createElement('div');
                 count.className = 'attendee-count';
