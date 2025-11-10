@@ -377,34 +377,46 @@
                     
                     try {
                         await addAttendee(name);
+                        
+                        // These happen instantly:
                         showMessage('you\'re on the list!', 'success');
                         form.reset();
+                        addBtn.textContent = 'add me';
+                        
+                        // Show loading indicator
+                        document.getElementById('attendees-container').innerHTML = 
+                            '<div class="loading">Updating...</div>';
+                        
+                        // Wait for list to reload
                         await loadEvent();
                     } catch (error) {
                         showMessage('oops! Something went wrong. try again?', 'error');
                         console.error(error);
+                        addBtn.textContent = 'add me';
                     }
                     
-                    addBtn.textContent = 'add me';
                 } else {
                     removeBtn.textContent = 'removing...';
                     
                     try {
                         const result = await removeAttendee(name);
                         
-                        if (result.deleted) {
-                            showMessage('you\'ve off the list. 😢', 'success');
-                            form.reset();
-                            await loadEvent();
-                        } else {
-                            showMessage('name not found. make sure you typed it exactly as it appears in the list.', 'error');
-                        }
+                        // These happen instantly:
+                        showMessage('you\'re off the list. 😢', 'success');
+                        form.reset();
+                        removeBtn.textContent = 'remove me';
+                        
+                        // Show loading indicator
+                        document.getElementById('attendees-container').innerHTML = 
+                            '<div class="loading">Updating...</div>';
+                        
+                        // Wait for list to reload
+                        await loadEvent();
                     } catch (error) {
                         showMessage('oops! Something went wrong. try again?', 'error');
                         console.error(error);
+                        removeBtn.textContent = 'remove me';
                     }
-                    
-                    removeBtn.textContent = 'remove me';
                 }
                 
                 addBtn.disabled = false;
