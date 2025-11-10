@@ -239,6 +239,15 @@ body.sulphur-black input {
     color: #f5ecc2;
     border-color: #111314;
 }
+@media (hover: none) and (pointer: coarse) {
+    body.sulphur-black button:hover {
+        background: #b09f36 !important;
+    }
+    
+    body.sulphur-black button.remove-btn:hover {
+        background: #b09f36 !important;
+    }
+}
 
 /* Purple-orange theme */
 body.purple-orange {
