@@ -122,7 +122,7 @@ iframe {
     /* For boxes - return to default box color */
     body a.box:hover,
     body .box.interactive:hover {
-        background: #a1a39a !important;
+        background: #f99d1b !important;
     }
     
     /* For buttons - return to button default */
@@ -145,7 +145,7 @@ iframe {
 @media (hover: none) and (pointer: coarse) {
     a.box:active,
     .box.interactive:active {
-        background: #e8ebde;
+        background: #fad8a9;
     }
     
     button:active {
