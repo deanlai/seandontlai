@@ -239,6 +239,18 @@ body.sulphur-black input {
     color: #f5ecc2;
     border-color: #111314;
 }
+
+body.sulphur-black .back-link a {
+    color: #f5ecc2;
+    border-bottom: 2px solid #f5ecc2;
+}
+
+body.sulphur-black .back-link a:hover {
+    background: #f5ecc2;
+    color: #111314;
+    border-bottom: 2px solid #f5ecc2;
+}
+
 @media (hover: none) and (pointer: coarse) {
     body.sulphur-black button:hover {
         background: #b09f36 !important;
@@ -304,6 +316,22 @@ body.winter input {
     color: #111;
     border-color: #111;
 }
+
+body.winter .attendee-section {
+    color: #111;
+}
+
+body.winter .back-link a {
+    color: #111;
+    border-bottom: 2px solid #111;
+}
+
+body.winter .back-link a:hover {
+    background: #111;
+    color: #a5c8d1;
+    border-bottom: 2px solid #111;
+}
+
 @media (hover: none) and (pointer: coarse) {
     body.winter button:hover {
         background: #00978d !important;
