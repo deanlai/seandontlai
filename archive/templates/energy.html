@@ -1,0 +1,116 @@
+{% extends 'baselayout.html' %}
+
+{% block head %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tidbits/energy.js') }}"></script>
+{% endblock %}
+{% block title %}Layman's Energies{% endblock %}
+
+{% block content %}
+<div class="container is-family-monospace">
+    <header class="hero">
+        <div class="hero-body">
+            <h1 class="has-text-centered is-size-3">Layman's Energies</h1>
+            <p class="has-text-centered">Note that to convert any of these energy quanitities into another in the real world would require perfect efficiency of conversion. Thermodyanmics will not allow this.</p>
+        </div>
+    </header>
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-4">
+            <div class="tile is-parent">
+                <div class="tile is-child notification energybox">
+                    <h3>Energy contained in</h3>
+                    <input id="butter" class="input is-family-monospace" type="text" placeholder="Grams of butter" name="butter" \
+                    onblur="outputEnergies(this.value, this.name)", \
+                    onkeypress="return keyPress(event, this.value, this.name)",
+                    autocomplete="off"value="">
+                    <h3>grams of butter.</h3>
+                </div>
+            </div>
+            <div class="tile is-parent">
+                <div class="tile is-child notification energybox">
+                    <h3>Energy needed to boil</h3>
+                    <input id="water" class="input is-family-monospace" type="text" placeholder="Litres of water" name="water" \
+                    onblur="outputEnergies(this.value, this.name)", \
+                    onkeypress="return keyPress(event, this.value, this.name)",
+                    autocomplete="off"value="">
+                    <h3>litres of water from room temperature.</h3>
+                </div>
+            </div>
+            <div class="tile is-parent">
+                <div class="tile is-child notification energybox">
+                    <h3>Kinetic energy of</h3>
+                    <input id="volkswagen" class="input is-family-monospace" type="text" placeholder="Number of Volkswagens" name="volkswagen" \
+                    onblur="outputEnergies(this.value, this.name)", \
+                    onkeypress="return keyPress(event, this.value, this.name)",
+                    autocomplete="off"value="">
+                    <h3>Volkswagen Beetles dropped from 2 meters.</h3>
+                </div>
+            </div>
+        </div>
+        <div class="tile is-vertical is-4 is-4">
+            <div class="tile  is-parent">
+                <div class="tile is-child notification energybox">
+                    <h3>Energy capacity of</h3>
+                    <input id="battery" class="input is-family-monospace" type="text" placeholder="Number of Macbook Airs" name="battery" \
+                    onblur="outputEnergies(this.value, this.name)", \
+                    onkeypress="return keyPress(event, this.value, this.name)",
+                    autocomplete="off"value="">
+                    <h3>Macbook Air batteries</h3>
+                </div>
+            </div>
+            <div class="tile  is-parent">
+                <div class="tile is-child notification energybox">
+                    <h3>Nutritional energy of</h3>
+                    <input id="food" class="input is-family-monospace" type="text" placeholder="Number of intakes" name="food" \
+                    onblur="outputEnergies(this.value, this.name)", \
+                    onkeypress="return keyPress(event, this.value, this.name)",
+                    autocomplete="off"value="">
+                    <h3>2000 Calorie recommended daily food intakes.</h3>
+                </div>
+            </div>
+            <div class="tile  is-parent">
+                <div class="tile is-child notification energybox">
+                    <h3>Energy of</h3>
+                    <input id="nuclear" class="input is-family-monospace" type="text" placeholder="Grams of uranium" name="nuclear" \
+                    onblur="outputEnergies(this.value, this.name)", \
+                    onkeypress="return keyPress(event, this.value, this.name)",
+                    autocomplete="off"value="">
+                    <h3>grams of Uranium-235 undergoing nuclear fission.</h3>
+                </div>
+            </div>
+        </div>
+        <div class="tile is-vertical is-4">
+            <div class="tile  is-parent">
+                <div class="tile is-child notification energybox">
+                    <h3>Energy output of a strong amateur cyclist pedaling for</h3>
+                    <input id="cyclist" class="input is-family-monospace" type="text" placeholder="Number of hours" name="cyclist" \
+                    onblur="outputEnergies(this.value, this.name)", \
+                    onkeypress="return keyPress(event, this.value, this.name)",
+                    autocomplete="off"value="">
+                    <h3>hours.</h3>
+                </div>
+            </div>
+            <div class="tile  is-parent">
+                <div class="tile is-child notification energybox">
+                    <h3>Solar energy available in 1 hour in</h3>
+                    <input id="sun" class="input is-family-monospace" type="text" placeholder="Number of square meters" name="sun" \
+                    onblur="outputEnergies(this.value, this.name)", \
+                    onkeypress="return keyPress(event, this.value, this.name)",
+                    autocomplete="off"value="">
+                    <h3>square meters of land at noon near the equator.</h3>
+                </div>
+            </div>
+            <div class="tile  is-parent">
+                <div class="tile is-child notification energybox">
+                    <h3>Energy contained in</h3>
+                    <input id="gasoline" class="input is-family-monospace" type="text" placeholder="Shots of gasoline" name="gasoline" \
+                    onblur="outputEnergies(this.value, this.name)", \
+                    onkeypress="return keyPress(event, this.value, this.name)",
+                    autocomplete="off"value="">
+                    <h3>shots of gasoline.</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
