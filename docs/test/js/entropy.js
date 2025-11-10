@@ -1,8 +1,3 @@
-var canv = {
-	w: window.innerWidth,
-    h: window.innerHeight-52
-}
-
 class Particle {
   constructor(x, y) {
     this.x = x
@@ -12,7 +7,6 @@ class Particle {
   move() {
     this.x += random(-5, 5)
     this.y += random(-5, 5)
-
   }
   show() {
     noStroke()
@@ -21,23 +15,36 @@ class Particle {
   }
 }
 
-particles = []
+let particles = []
 
 function setup() {
-  createCanvas(canv.w, canv.h);
+  createCanvas(windowWidth, windowHeight);
   background(10);
-  for (i = 0; i < canv.h*3; i++) {
-    angle = random(0, 360)
-    radius = random(0, canv.h/10)
-    part = new Particle(canv.w/2 + radius * Math.sin(angle), canv.h/2 + radius * Math.cos(angle))
+  initParticles();
+}
+
+function initParticles() {
+  particles = []; // Clear existing
+  for (let i = 0; i < windowHeight * 3; i++) {
+    let angle = random(0, 360)
+    let radius = random(0, windowHeight / 10)
+    let part = new Particle(
+      windowWidth / 2 + radius * Math.sin(angle), 
+      windowHeight / 2 + radius * Math.cos(angle)
+    )
     particles.push(part)
   }
 }
 
 function draw() {
   background(10);
-  for (i=0; i<particles.length; i++) {
-		particles[i].show()
+  for (let i = 0; i < particles.length; i++) {
+    particles[i].show()
     particles[i].move()
   }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  initParticles(); // Reinitialize particles for new size
 }
