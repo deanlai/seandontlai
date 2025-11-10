@@ -278,7 +278,7 @@
                 
                 displayEvent(event);
             } catch (error) {
-                container.innerHTML = '<div class="error">Failed to load event. Please try again later.</div>';
+                container.innerHTML = '<div class="error">failed to load event. please try again later.</div>';
                 console.error(error);
             }
         }
@@ -394,7 +394,7 @@
                         form.reset();
                         await loadEvent();
                     } catch (error) {
-                        showMessage('Oops! Something went wrong. Try again?', 'error');
+                        showMessage('oops! Something went wrong. try again?', 'error');
                         console.error(error);
                     }
                     
@@ -413,7 +413,7 @@
                             showMessage('name not found. make sure you typed it exactly as it appears in the list.', 'error');
                         }
                     } catch (error) {
-                        showMessage('Oops! Something went wrong. Try again?', 'error');
+                        showMessage('oops! Something went wrong. try again?', 'error');
                         console.error(error);
                     }
                     
