@@ -87,7 +87,7 @@
 
         .button-group {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 0.5rem;
         }
 
@@ -118,6 +118,14 @@
 
         button.remove-btn:hover {
             background: #a52a2a;
+        }
+        button.calendar-btn {
+            background: #2c3e50;
+            border-color: #2c3e50;
+        }
+
+        button.calendar-btn:hover {
+            background: #34495e;
         }
 
         /* Attendee Section */
@@ -220,9 +228,10 @@
     </div>
 
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycby1zaYGGqFJQ5YbNGBZDEtACxJHnd4ti30yyjyQN64toTzQGx-o5LzJRKcDqs7fnkex/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxctNcPNDEb1gKIB1Wk71J68WN45oneCAwmL6Hwjbf6NT3IAQxX9EgdCknUoLVOFmuc/exec';
         
         let currentEventId = null;
+        let currentEvent = null;
         let currentTheme = 'default';
 
         // Get event ID from URL
@@ -284,6 +293,7 @@
         }
 
         function displayEvent(event) {
+            currentEvent = event; // Store for calendar function
             const container = document.getElementById('content');
             
             container.innerHTML = `
@@ -307,6 +317,7 @@
                         <div class="button-group">
                             <button type="submit" id="add-btn" data-action="add">add me</button>
                             <button type="button" id="remove-btn" class="remove-btn" data-action="remove">remove me</button>
+                            <button type="button" id="calendar-btn" class="calendar-btn">add to calendar</button>
                         </div>
                     </form>
                 </div>
@@ -348,6 +359,7 @@
             const form = document.getElementById('rsvp-form');
             const addBtn = document.getElementById('add-btn');
             const removeBtn = document.getElementById('remove-btn');
+            const calendarBtn = document.getElementById('calendar-btn');
             const nameInput = document.getElementById('name');
             const messageDiv = document.getElementById('message');
 
@@ -362,6 +374,10 @@
                 messageDiv.className = '';
                 messageDiv.textContent = '';
                 await handleAction('remove');
+            });
+
+            calendarBtn.addEventListener('click', () => {
+                addToCalendar();
             });
 
             async function handleAction(action) {
@@ -469,6 +485,24 @@
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
+        }
+        function addToCalendar() {
+            if (!currentEvent || !currentEvent.calendar_date) {
+                alert('Calendar date not available');
+                return;
+            }
+            
+            // Convert to Google Calendar format (YYYYMMDDTHHMMSS)
+            const startDate = currentEvent.calendar_date.replace(/[-:]/g, '');
+            
+            // Calculate end time (2 hours later)
+            const start = new Date(currentEvent.calendar_date);
+            const end = new Date(start.getTime() + (2 * 60 * 60 * 1000));
+            const endDate = end.toISOString().replace(/[-:]/g, '').split('.')[0];
+            
+            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(currentEvent.movie)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(currentEvent.description)}&location=${encodeURIComponent(currentEvent.location)}`;
+            
+            window.open(url, '_blank');
         }
     </script>
 </body>
