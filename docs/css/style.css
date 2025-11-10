@@ -267,3 +267,49 @@ body.purple-orange button {
 body.purple-orange button:hover {
     background: #9a3361;
 }
+
+/* Winter theme */
+
+body.winter {
+    background: #111;
+    color: #a5c8d1;
+}
+
+body.winter .event-header{
+    background: #a5c8d1;
+    color:#000;
+    
+}
+
+body.winter .form-section,
+body.winter .attendee-box {
+    background: #a5c8d1;
+    color: #111;
+    border-color: #111;
+}
+
+body.winter button {
+    background: #00978d;
+    border-color: #00978d;
+    color: #111;
+    
+}
+
+body.winter button:hover {
+    background: #005853;
+}
+
+body.winter input {
+    background: #fff;
+    color: #111;
+    border-color: #111;
+}
+@media (hover: none) and (pointer: coarse) {
+    body.winter button:hover {
+        background: #00978d !important;
+    }
+    
+    body.winter button.remove-btn:hover {
+        background: #00978d !important;
+    }
+}
