@@ -117,19 +117,32 @@ iframe {
         grid-template-columns: 1fr;
     }
 }
-/* Disable hover effects on touch devices */
-@media (hover: none) {
-    a.box:hover,
-    .box.interactive:hover,
-    button:hover,
-    .back-link a:hover {
-        background: inherit;
-        color: inherit;
+/* Remove hover states on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    /* For boxes - return to default box color */
+    body a.box:hover,
+    body .box.interactive:hover {
+        background: #a1a39a !important;
+    }
+    
+    /* For buttons - return to button default */
+    body button:hover {
+        background: #000 !important;
+    }
+    
+    body button.remove-btn:hover {
+        background: #8b0000 !important;
+    }
+    
+    /* For links - return to normal state */
+    body .back-link a:hover {
+        background: transparent !important;
+        color: #000 !important;
     }
 }
 
 /* Use active state for touch instead */
-@media (hover: none) {
+@media (hover: none) and (pointer: coarse) {
     a.box:active,
     .box.interactive:active {
         background: #e8ebde;
