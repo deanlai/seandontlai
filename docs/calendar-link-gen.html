@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar Link Generator</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .container {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .section {
+            background: #a1a39a;
+            border: 3px solid #000;
+            border-left: 10px solid #000;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px solid #000;
+            font-family: inherit;
+            font-size: 0.9rem;
+            background: white;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            width: 100%;
+            background: #000;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+        }
+
+        button:hover {
+            background: #333;
+        }
+
+        #output {
+            background: white;
+            border: 2px solid #000;
+            padding: 1rem;
+            word-break: break-all;
+            font-size: 0.85rem;
+            font-family: monospace;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        #output:empty::before {
+            content: "Link will appear here...";
+            font-style: italic;
+            color: #666;
+        }
+
+        .copy-btn {
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .copy-btn.show {
+            display: block;
+        }
+
+        .success-msg {
+            background: #90ee90;
+            border: 2px solid #000;
+            padding: 0.5rem;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .success-msg.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calendar Link Generator</h1>
+
+        <div class="section">
+            <h2>Select Event</h2>
+            <select id="event-select">
+                <option value="">Loading events...</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <h2>Generated Link</h2>
+            <div id="output"></div>
+            <button class="copy-btn" id="copy-btn" onclick="copyLink()">Copy Link</button>
+            <div class="success-msg" id="success-msg">✓ Copied to clipboard!</div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxctNcPNDEb1gKIB1Wk71J68WN45oneCAwmL6Hwjbf6NT3IAQxX9EgdCknUoLVOFmuc/exec';
+        let currentLink = '';
+
+        loadEvents();
+
+        async function loadEvents() {
+            try {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'getEvents' })
+                });
+                
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                const response = await fetch(`${API_URL}?action=getEvents`);
+                const events = await response.json();
+                
+                const select = document.getElementById('event-select');
+                select.innerHTML = '<option value="">-- Select an event --</option>';
+                
+                events.forEach(event => {
+                    const option = document.createElement('option');
+                    option.value = event.event_id;
+                    option.textContent = `${event.movie} - ${event.date}`;
+                    select.appendChild(option);
+                });
+                
+                select.addEventListener('change', async (e) => {
+                    if (e.target.value) {
+                        await generateLink(e.target.value);
+                    }
+                });
+                
+            } catch (error) {
+                console.error(error);
+                document.getElementById('event-select').innerHTML = 
+                    '<option>Error loading events</option>';
+            }
+        }
+
+        async function generateLink(eventId) {
+            try {
+                const response = await fetch(`${API_URL}?action=getEvent&event_id=${eventId}`);
+                const event = await response.json();
+                
+                if (!event.calendar_date) {
+                    document.getElementById('output').textContent = 
+                        'Error: No calendar date set for this event';
+                    return;
+                }
+                
+                // Convert datetime to Google Calendar format
+                const startDate = event.calendar_date.replace(/[-:]/g, '');
+                
+                // Calculate end time (2 hours later)
+                const start = new Date(event.calendar_date);
+                const end = new Date(start.getTime() + (3 * 60 * 60 * 1000));
+                const endYear = end.getFullYear();
+                const endMonth = String(end.getMonth() + 1).padStart(2, '0');
+                const endDay = String(end.getDate()).padStart(2, '0');
+                const endHour = String(end.getHours()).padStart(2, '0');
+                const endMin = String(end.getMinutes()).padStart(2, '0');
+                const endSec = String(end.getSeconds()).padStart(2, '0');
+                const endDate = `${endYear}${endMonth}${endDay}T${endHour}${endMin}${endSec}`;
+                
+                // Build the link
+                const link = `https://calendar.google.com/calendar/render?action=TEMPLATE` +
+                    `&text=${encodeURIComponent(event.movie)}` +
+                    `&dates=${startDate}/${endDate}` +
+                    `&details=${encodeURIComponent(event.description || '')}` +
+                    `&location=${encodeURIComponent(event.location)}`;
+                
+                currentLink = link;
+                document.getElementById('output').textContent = link;
+                document.getElementById('copy-btn').classList.add('show');
+                
+            } catch (error) {
+                console.error(error);
+                document.getElementById('output').textContent = 'Error generating link';
+            }
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(currentLink).then(() => {
+                const msg = document.getElementById('success-msg');
+                msg.classList.add('show');
+                setTimeout(() => {
+                    msg.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy. Please copy manually.');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -497,8 +497,14 @@
             
             // Calculate end time (2 hours later)
             const start = new Date(currentEvent.calendar_date);
-            const end = new Date(start.getTime() + (2 * 60 * 60 * 1000));
-            const endDate = end.toISOString().replace(/[-:]/g, '').split('.')[0];
+            const end = new Date(start.getTime() + (3 * 60 * 60 * 1000));
+            const endYear = end.getFullYear();
+            const endMonth = String(end.getMonth() + 1).padStart(2, '0');
+            const endDay = String(end.getDate()).padStart(2, '0');
+            const endHour = String(end.getHours()).padStart(2, '0');
+            const endMin = String(end.getMinutes()).padStart(2, '0');
+            const endSec = String(end.getSeconds()).padStart(2, '0');
+            const endDate = `${endYear}${endMonth}${endDay}T${endHour}${endMin}${endSec}`;
             
             const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(currentEvent.movie)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(currentEvent.description)}&location=${encodeURIComponent(currentEvent.location)}`;
             
