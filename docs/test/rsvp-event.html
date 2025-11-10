@@ -220,7 +220,7 @@
     </div>
 
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzGChMxhIMmEI0growdNzknB8LzrphnxGFHRMPBn6S3C8xuS-uRbcsjDOuXvj2EX5Op/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycby1zaYGGqFJQ5YbNGBZDEtACxJHnd4ti30yyjyQN64toTzQGx-o5LzJRKcDqs7fnkex/exec';
         
         let currentEventId = null;
         let currentTheme = 'default';
@@ -376,19 +376,6 @@
                     addBtn.textContent = 'adding...';
                     
                     try {
-                        // Check for duplicates first
-                        const response = await fetch(`${API_URL}?action=getAttendees&event_id=${currentEventId}`);
-                        const attendees = await response.json();
-                        const duplicate = attendees.find(a => a.name.toLowerCase() === name.toLowerCase());
-                        
-                        if (duplicate) {
-                            showMessage('name is already on the list. please choose another name or add an initial', 'info');
-                            addBtn.textContent = 'add me';
-                            addBtn.disabled = false;
-                            removeBtn.disabled = false;
-                            return;
-                        }
-                        
                         await addAttendee(name);
                         showMessage('you\'re on the list!', 'success');
                         form.reset();
