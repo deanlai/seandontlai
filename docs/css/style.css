@@ -341,3 +341,65 @@ body.winter .back-link a:hover {
         background: #00978d !important;
     }
 }
+
+/* Black & White */
+
+body.blackandwhite {
+    background: #111314;
+    color: #a1a39a;
+}
+
+body.blackandwhite .event-header{
+    background: #a1a39a;
+    color:#000;
+    
+}
+
+body.blackandwhite .form-section,
+body.blackandwhite .attendee-box {
+    background: #a1a39a;
+    color: #111314;
+    border-color: #111314;
+}
+
+body.blackandwhite button {
+    background: #111314;
+    border-color: #111314;
+    color: #eee;
+    
+}
+
+body.blackandwhite button:hover {
+    background: #3a4144;
+}
+
+body.blackandwhite input {
+    background: #eee;
+    color: #111314;
+    border-color: #111314;
+}
+
+body.blackandwhite .attendee-section {
+    color: #eee;
+}
+
+body.blackandwhite .back-link a {
+    color: #eee;
+    border-bottom: 2px solid #eee;
+}
+
+body.blackandwhite .back-link a:hover {
+    background: #eee;
+    color: #111314;
+    border-bottom: 2px solid #eee;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    body.blackandwhite button:hover {
+        background: #111314 !important;
+    }
+    
+    body.blackandwhite button.remove-btn:hover {
+        background: #111314 !important;
+    }
+}
