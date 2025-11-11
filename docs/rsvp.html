@@ -134,7 +134,7 @@
     </div>
 
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbxctNcPNDEb1gKIB1Wk71J68WN45oneCAwmL6Hwjbf6NT3IAQxX9EgdCknUoLVOFmuc/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzDifp5l_yQOkqbgHQXu1wm104w-iCKc82rq1iZZ-dfHm2e8GMt6dFPQoYcWPHcbx7z/exec';
 
         // Load events on page load
         loadEvents();
@@ -178,7 +178,20 @@
             const grid = document.createElement('div');
             grid.className = 'events-grid';
             
-            events.forEach(event => {
+            // Filter out past events
+            const now = new Date();
+            const upcomingEvents = events.filter(event => {
+                if (!event.calendar_date) return true; // Show if no date set
+                const eventDate = new Date(event.calendar_date);
+                return eventDate > now;  // Changed from >= to >
+            });
+            
+            if (upcomingEvents.length === 0) {
+                container.innerHTML = '<div class="no-events">No upcoming events scheduled yet.</div>';
+                return;
+            }
+            
+            upcomingEvents.forEach(event => {
                 const box = document.createElement('a');
                 box.className = 'event-box';
                 box.href = `rsvp-event.html?id=${event.event_id}`;
