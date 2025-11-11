@@ -346,52 +346,52 @@ body.winter .back-link a:hover {
 
 body.blackandwhite {
     background: #111314;
-    color: #a1a39a;
+    color: #ebd3a2;
 }
 
 body.blackandwhite .event-header{
-    background: #a1a39a;
+    background: #ebd3a2;
     color:#000;
     
 }
 
 body.blackandwhite .form-section,
 body.blackandwhite .attendee-box {
-    background: #a1a39a;
+    background: #ebd3a2;
     color: #111314;
     border-color: #111314;
 }
 
 body.blackandwhite button {
-    background: #111314;
-    border-color: #111314;
+    background: #6e7775;
+    border-color: #6e7775;
     color: #eee;
     
 }
 
 body.blackandwhite button:hover {
-    background: #3a4144;
+    background: #454b4a;
 }
 
 body.blackandwhite input {
-    background: #eee;
-    color: #111314;
+    background: #333;
+    color: #ebd3a2;
     border-color: #111314;
 }
 
 body.blackandwhite .attendee-section {
-    color: #eee;
+    color: #ebd3a2;
 }
 
 body.blackandwhite .back-link a {
-    color: #eee;
-    border-bottom: 2px solid #eee;
+    color: #ebd3a2;
+    border-bottom: 2px solid #ebd3a2;
 }
 
 body.blackandwhite .back-link a:hover {
-    background: #eee;
+    background: #ebd3a2;
     color: #111314;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid #ebd3a2;
 }
 
 @media (hover: none) and (pointer: coarse) {
