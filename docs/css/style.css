@@ -363,14 +363,14 @@ body.blackandwhite .attendee-box {
 }
 
 body.blackandwhite button {
-    background: #6e7775;
-    border-color: #6e7775;
+    background: #004f46;
+    border-color: #004f46;
     color: #eee;
     
 }
 
 body.blackandwhite button:hover {
-    background: #454b4a;
+    background: #008f7e;
 }
 
 body.blackandwhite input {
@@ -396,10 +396,10 @@ body.blackandwhite .back-link a:hover {
 
 @media (hover: none) and (pointer: coarse) {
     body.blackandwhite button:hover {
-        background: #111314 !important;
+        background: #004f46 !important;
     }
     
     body.blackandwhite button.remove-btn:hover {
-        background: #111314 !important;
+        background: #004f46 !important;
     }
 }
