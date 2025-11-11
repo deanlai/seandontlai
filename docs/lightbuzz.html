@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lord of Fly</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents scrollbars */
+        }
+        
+        canvas {
+            display: block; /* Removes inline spacing */
+            width: 100vw;
+            height: 100vh;
+        }
+        #start-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0f0f0f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+            color: white;
+        }
+        /* Hide mobile message by default */
+        .mobile-only {
+            display: none;
+        }
+
+        /* Show only on mobile/tablet */
+        @media (max-width: 1024px) {
+            .mobile-only {
+                display: block;
+                text-align: center;
+                padding: 2rem;
+                font-size: 1.2rem;
+            }
+            
+            /* Hide the canvas on mobile */
+            canvas {
+                display: none;
+            }
+        }
+        #start-overlay.hidden {
+            display: none;
+        }
+        /* Show only on mobile/tablet */
+        @media (max-width: 1024px) {
+            .mobile-only {
+                display: block;
+                text-align: center;
+                padding: 2rem;
+                font-size: 1.2rem;
+            }
+            
+            /* Hide the canvas on mobile */
+            canvas {
+                display: none;
+            }
+            
+            /* Hide start overlay on mobile */
+            #start-overlay {
+                display: none;
+            }
+        }
+        .mobile-only a {
+            color: #000;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid #000;
+}
+    </style>
+</head>
+<body>
+    <div class="mobile-only">
+        <p>This experience works best on desktop.</p>
+        <a href="index.html">← Back to Home</a>
+    </div>
+    <div id="start-overlay">
+    <div style="text-align: center;">
+        <h2>Click to begin</h2>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem;">
+            Move your mouse to control the light
+        </p>
+    </div>
+</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('start-overlay').addEventListener('click', () => {
+                document.getElementById('start-overlay').classList.add('hidden');
+            });
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/addons/p5.sound.min.js"></script>
+    <script src="js/lightbuzz.js"></script>
+    <script src="js/fly.js"></script>
+    <script src="js/light.js"></script>
+</body>
+</html>
