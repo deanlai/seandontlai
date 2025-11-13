@@ -141,6 +141,17 @@
 
         async function loadEvents() {
             const container = document.getElementById('events-container');
+
+            // Check cache first (valid for 5 minutes)
+            const cached = localStorage.getItem('events_cache');
+            const cacheTime = localStorage.getItem('events_cache_time');
+            const now = Date.now();
+            
+            if (cached && cacheTime && (now - cacheTime) < 300000) { // 5 minutes
+                const events = JSON.parse(cached);
+                displayEvents(events);
+                return;
+            }
             
             try {
                 // Use POST with no-cors (same pattern as the working RSVP page)
@@ -164,6 +175,9 @@
                     container.innerHTML = '<div class="no-events">No upcoming events scheduled yet.</div>';
                     return;
                 }
+
+                localStorage.setItem('events_cache', JSON.stringify(events));
+                localStorage.setItem('events_cache_time', now.toString());
                 
                 displayEvents(events);
             } catch (error) {
